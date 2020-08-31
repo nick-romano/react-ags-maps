@@ -1,0 +1,37 @@
+{
+  "name": "react-ags-maps",
+  "version": "1.0.0",
+  "description": "a hook centric library for creating easy maps with the arcgis api for javascript and react.",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "npm test",
+    "build": "babel --presets @babel/preset-react src --out-dir dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nick-romano/react-ags-maps.git"
+  },
+  "keywords": [
+    "map",
+    "gis",
+    "react",
+    "arcgis",
+    "javascript",
+    "api"
+  ],
+  "author": "nick-romano",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/cli": "^7.10.5",
+    "@babel/core": "^7.11.4",
+    "@babel/preset-env": "^7.11.0",
+    "@babel/preset-react": "^7.10.4",
+    "ts-migrate": "^0.1.2"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0",
+    "react-dom": "^16.8.0",
+    "esri-loader": "^2.14.0",
+    "gl-matrix": "^3.1.0"
+  }
+}
