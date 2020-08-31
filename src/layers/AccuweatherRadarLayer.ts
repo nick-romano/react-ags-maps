@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
+// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module './hook' or its corresponding t... Remove this comment to see the full error message
 import { useMapContext } from './hook';
 
-const AccuweatherRadarLayer = ({ proxyUrl = null, radarTileService, token }) => {
+const AccuweatherRadarLayer = ({
+    proxyUrl = null,
+    radarTileService,
+    token
+}: any) => {
     const { loadModules } = require('esri-loader');
     const { map, initialized } = useMapContext();
     const [radarIndex, setRadarIndex] = useState(0);
@@ -21,14 +26,14 @@ const AccuweatherRadarLayer = ({ proxyUrl = null, radarTileService, token }) => 
 
 
 
-    function startLooping(data) {
+    function startLooping(data: any) {
         const _frames = data.frames.slice(data.frames.length - numFrames);
         setTileUrl(data.url);
         setLooping(true);
         setFrames(_frames);
     };
 
-    function _convertFrameTime(frameTime) {
+    function _convertFrameTime(frameTime: any) {
         var serverTz = 'GMT';
 
         // get current date
@@ -46,8 +51,8 @@ const AccuweatherRadarLayer = ({ proxyUrl = null, radarTileService, token }) => 
     };
 
     useEffect(() => {
-        let _layers = [];
-        let _layerIds = [];
+        let _layers: any = [];
+        let _layerIds: any = [];
         const createLayer = async () => {
             const radarLoopingIndex = 0;
             const [WebTileLayer] = await loadModules(["esri/layers/WebTileLayer"]);
@@ -79,6 +84,7 @@ const AccuweatherRadarLayer = ({ proxyUrl = null, radarTileService, token }) => 
 
             // Set next layer to specified opacity
             const newLayer = layers[radarIndex];
+            // @ts-expect-error ts-migrate(2339) FIXME: Property 'opacity' does not exist on type 'never'.
             newLayer.opacity = tileAlpha;
 
             const frameTime = frames[radarIndex];
@@ -87,7 +93,7 @@ const AccuweatherRadarLayer = ({ proxyUrl = null, radarTileService, token }) => 
             // dom.byId('currentloopingframe').innerHTML = time;
             // time = null;
 
-            let _radarIndex;
+            let _radarIndex: any;
             // Advance the frame index
             if (radarIndex + 1 < numFrames) {
                 _radarIndex = radarIndex + 1;

@@ -20,4 +20,4 @@ var _AccuweatherRadarLayer = _interopRequireDefault(require("./AccuweatherRadarL
 
 var _PointImageLayer = _interopRequireDefault(require("./PointImageLayer"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+function _interopRequireDefault(obj: any) { return obj && obj.__esModule ? obj : { "default": obj }; }

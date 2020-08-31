@@ -4,8 +4,18 @@ const { loadModules, loadCss, parseVersion } = require('esri-loader');
 // this will lazy load the ArcGIS API
 // and then use Dojo's loader to require the map class
 
-const MapInstance = ({ id, style, children, webMapId = null, centerX=10.546874999, centerY=35.31736, zoom=2, theme='dark' }) => {
+const MapInstance = ({
+    id,
+    style,
+    children,
+    webMapId = null,
+    centerX=10.546874999,
+    centerY=35.31736,
+    zoom=2,
+    theme='dark'
+}: any) => {
 
+    // @ts-expect-error ts-migrate(2339) FIXME: Property 'updateMap' does not exist on type 'unkno... Remove this comment to see the full error message
     const { updateMap, updateView } = useMapContext();
 
     const loadMap = useCallback(async () => {
@@ -14,6 +24,7 @@ const MapInstance = ({ id, style, children, webMapId = null, centerX=10.54687499
         loadCss();
         console.log(parseVersion());
 
+        // @ts-expect-error ts-migrate(7031) FIXME: Binding element 'MapView' implicitly has an 'any' ... Remove this comment to see the full error message
         const loadMap = async ([MapView, WebMap]) => {
             try {
                 // then we load a web map from an id
@@ -59,7 +70,7 @@ const MapInstance = ({ id, style, children, webMapId = null, centerX=10.54687499
       }, [centerX, centerY, id, webMapId, zoom]);
 
     useEffect(() => {
-        let map, view;
+        let map: any, view: any;
         const asyncEffects = async () => {
             // eslint-disable-next-line no-unused-vars
             const [map, view] = await loadMap();
@@ -74,6 +85,7 @@ const MapInstance = ({ id, style, children, webMapId = null, centerX=10.54687499
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+    // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
     return (<div id={id} style={{ width: "100%", height: "100%", ...style }}> {children} </div >)
 };
 

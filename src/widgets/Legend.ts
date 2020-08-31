@@ -3,11 +3,12 @@ import { useMapContext } from '../hook';
 const { loadModules } = require('esri-loader');
 
 const Legend = ({ expander = false, position = "top-right" }) => {
+  // @ts-expect-error ts-migrate(2339) FIXME: Property 'view' does not exist on type 'unknown'.
   const { view } = useMapContext();
 
   useEffect(() => {
     let mounted = true;
-    let legend;
+    let legend: any;
 
     const asyncEffect = async () => {
       const reqModules = ["esri/widgets/Legend"];

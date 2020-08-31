@@ -1,4 +1,6 @@
+// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module 'esri-loader' or its correspond... Remove this comment to see the full error message
 import { loadModules } from 'esri-loader';
+// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module 'gl-matrix' or its correspondin... Remove this comment to see the full error message
 import { mat3, vec2, vec3 } from 'gl-matrix';
 
 const animatedLayer = loadModules([
@@ -8,10 +10,15 @@ const animatedLayer = loadModules([
     "esri/layers/GraphicsLayer",
     "esri/views/2d/layers/BaseLayerViewGL2D"
 ]).then(([
+    // @ts-expect-error ts-migrate(7031) FIXME: Binding element 'Map' implicitly has an 'any' type... Remove this comment to see the full error message
     Map,
+    // @ts-expect-error ts-migrate(7031) FIXME: Binding element 'watchUtils' implicitly has an 'an... Remove this comment to see the full error message
     watchUtils,
+    // @ts-expect-error ts-migrate(7031) FIXME: Binding element 'promiseUtils' implicitly has an '... Remove this comment to see the full error message
     promiseUtils,
+    // @ts-expect-error ts-migrate(7031) FIXME: Binding element 'GraphicsLayer' implicitly has an ... Remove this comment to see the full error message
     GraphicsLayer,
+    // @ts-expect-error ts-migrate(7031) FIXME: Binding element 'BaseLayerViewGL2D' implicitly has... Remove this comment to see the full error message
     BaseLayerViewGL2D
 ]) => {
     // Subclass the custom layer view from BaseLayerViewGL2D.
@@ -43,7 +50,9 @@ const animatedLayer = loadModules([
             // `needsUpdate` is true may cause an update of the vertex and
             // index buffers.
             var requestUpdate = function () {
+                // @ts-expect-error ts-migrate(2683) FIXME: 'this' implicitly has type 'any' because it does n... Remove this comment to see the full error message
                 this.needsUpdate = true;
+                // @ts-expect-error ts-migrate(2683) FIXME: 'this' implicitly has type 'any' because it does n... Remove this comment to see the full error message
                 this.requestRender();
             }.bind(this);
 
@@ -156,7 +165,7 @@ const animatedLayer = loadModules([
         },
 
         // Called every time a frame is rendered.
-        render: function (renderParameters) {
+        render: function (renderParameters: any) {
             var gl = renderParameters.context;
             var state = renderParameters.state;
 
@@ -225,7 +234,7 @@ const animatedLayer = loadModules([
         },
 
         // Called by the map view or the popup view when hit testing is required.
-        hitTest: function (x, y) {
+        hitTest: function (x: any, y: any) {
             // The map view.
             var view = this.view;
 
@@ -235,7 +244,7 @@ const animatedLayer = loadModules([
             }
 
             // Compute screen distance between each graphic and the test point.
-            var distances = this.layer.graphics.map(function (graphic) {
+            var distances = this.layer.graphics.map(function (graphic: any) {
                 var graphicPoint = view.toScreen(graphic.geometry);
                 return Math.sqrt(
                     (graphicPoint.x - x) * (graphicPoint.x - x) +
@@ -246,7 +255,7 @@ const animatedLayer = loadModules([
             // Find the minimum distance.
             var minIndex = 0;
 
-            distances.forEach(function (distance, i) {
+            distances.forEach(function (distance: any, i: any) {
                 if (distance < distances.getItemAt(minIndex)) {
                     minIndex = i;
                 }
@@ -268,7 +277,7 @@ const animatedLayer = loadModules([
         },
 
         // Called internally from render().
-        updatePositions: function (renderParameters) {
+        updatePositions: function (renderParameters: any) {
             var gl = renderParameters.context;
             var stationary = renderParameters.stationary;
             var state = renderParameters.state;
@@ -309,11 +318,13 @@ const animatedLayer = loadModules([
 
             var i = 0;
             graphics.forEach(
-                function (graphic) {
+                function (graphic: any) {
                     var point = graphic.geometry;
 
                     // The (x, y) position is relative to the encoded center.
+                    // @ts-expect-error ts-migrate(2683) FIXME: 'this' implicitly has type 'any' because it does n... Remove this comment to see the full error message
                     var x = point.x - this.centerAtLastUpdate[0];
+                    // @ts-expect-error ts-migrate(2683) FIXME: 'this' implicitly has type 'any' because it does n... Remove this comment to see the full error message
                     var y = point.y - this.centerAtLastUpdate[1];
 
                     vertexData[i * 16 + 0] = x;
@@ -361,7 +372,7 @@ const animatedLayer = loadModules([
 
     // Subclass the custom layer view from GraphicsLayer.
     const _animatedLayer = GraphicsLayer.createSubclass({
-        createLayerView: function (view) {
+        createLayerView: function (view: any) {
             this.title = 'Subject Incident';
             // We only support MapView, so we only need to return a
             // custom layer view for the `2d` case.

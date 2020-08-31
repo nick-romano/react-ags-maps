@@ -3,7 +3,7 @@ const { loadModules } = require('esri-loader');
 
 
 
-const reducer = (state, action) => {
+const reducer = (state: any, action: any) => {
     switch (action.type) {
         case "MAP_CHANGED":
             return {
@@ -52,11 +52,13 @@ const initialState = {
 const MapContext = React.createContext(initialState);
 
 
-const MapProvider = ({ children }) => {
+const MapProvider = ({
+    children
+}: any) => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
-    const updateMap = (map) => dispatch({ type: "MAP_CHANGED", payload: map });
-    const updateView = (view) => dispatch({ type: "VIEW_CHANGED", payload: view });
+    const updateMap = (map: any) => dispatch({ type: "MAP_CHANGED", payload: map });
+    const updateView = (view: any) => dispatch({ type: "VIEW_CHANGED", payload: view });
 
     useEffect(() => {
         if (state.map && state.view) {
@@ -66,6 +68,7 @@ const MapProvider = ({ children }) => {
 
     useEffect(() => {
         const asyncEffect = async () => {
+            // @ts-expect-error ts-migrate(7031) FIXME: Binding element 'watchUtils' implicitly has an 'an... Remove this comment to see the full error message
             await loadModules(['esri/core/watchUtils']).then(function ([watchUtils]) {
                 watchUtils.whenFalseOnce(state.view, 'updating', () => {
                     dispatch({ type: "MAP_RENDERED_CHANGED", payload: true });
@@ -77,8 +80,10 @@ const MapProvider = ({ children }) => {
 
 
     return (
+        // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
         <MapContext.Provider
             value={{
+                // @ts-expect-error ts-migrate(2322) FIXME: Object literal may only specify known properties, ... Remove this comment to see the full error message
                 updateMap,
                 updateView,
                 map: state.map,

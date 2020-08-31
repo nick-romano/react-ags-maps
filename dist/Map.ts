@@ -11,9 +11,11 @@ var _context = require("./context");
 
 var _MapInstance = _interopRequireDefault(require("./MapInstance"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+// @ts-expect-error ts-migrate(2393) FIXME: Duplicate function implementation.
+function _interopRequireDefault(obj: any) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-var Map = function Map(_ref) {
+// @ts-expect-error ts-migrate(2403) FIXME: Subsequent variable declarations must have the sam... Remove this comment to see the full error message
+var Map = function Map(_ref: any) {
   var id = _ref.id,
       _ref$webMapId = _ref.webMapId,
       webMapId = _ref$webMapId === void 0 ? null : _ref$webMapId,

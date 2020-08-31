@@ -52,4 +52,4 @@ var _Map = _interopRequireDefault(require("./Map"));
 
 var _widgets = require("./widgets");
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+function _interopRequireDefault(obj: any) { return obj && obj.__esModule ? obj : { "default": obj }; }

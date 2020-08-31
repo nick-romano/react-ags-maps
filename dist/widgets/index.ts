@@ -44,4 +44,4 @@ var _Bookmarks = _interopRequireDefault(require("./Bookmarks"));
 
 var _Zoom = _interopRequireDefault(require("./Zoom"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+function _interopRequireDefault(obj: any) { return obj && obj.__esModule ? obj : { "default": obj }; }

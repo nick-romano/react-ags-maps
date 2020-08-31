@@ -9,24 +9,30 @@ var _esriLoader = require("esri-loader");
 
 var _glMatrix = require("gl-matrix");
 
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _slicedToArray(arr: any, i: any) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _unsupportedIterableToArray(o: any, minLen: any) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _arrayLikeToArray(arr: any, len: any) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _iterableToArrayLimit(arr: any, i: any) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+function _arrayWithHoles(arr: any) { if (Array.isArray(arr)) return arr; }
 
-var animatedLayer = (0, _esriLoader.loadModules)(["esri/Map", "esri/core/watchUtils", "esri/core/promiseUtils", "esri/layers/GraphicsLayer", "esri/views/2d/layers/BaseLayerViewGL2D"]).then(function (_ref) {
+// @ts-expect-error ts-migrate(2695) FIXME: Left side of comma operator is unused and has no s... Remove this comment to see the full error message
+var animatedLayer = (0, _esriLoader.loadModules)(["esri/Map", "esri/core/watchUtils", "esri/core/promiseUtils", "esri/layers/GraphicsLayer", "esri/views/2d/layers/BaseLayerViewGL2D"]).then(function (_ref: any) {
   var _ref2 = _slicedToArray(_ref, 5),
+      // @ts-expect-error ts-migrate(7053) FIXME: Property '0' does not exist on type 'void | any[]'... Remove this comment to see the full error message
       Map = _ref2[0],
+      // @ts-expect-error ts-migrate(7053) FIXME: Property '1' does not exist on type 'void | any[]'... Remove this comment to see the full error message
       watchUtils = _ref2[1],
+      // @ts-expect-error ts-migrate(7053) FIXME: Property '2' does not exist on type 'void | any[]'... Remove this comment to see the full error message
       promiseUtils = _ref2[2],
+      // @ts-expect-error ts-migrate(7053) FIXME: Property '3' does not exist on type 'void | any[]'... Remove this comment to see the full error message
       GraphicsLayer = _ref2[3],
+      // @ts-expect-error ts-migrate(7053) FIXME: Property '4' does not exist on type 'void | any[]'... Remove this comment to see the full error message
       BaseLayerViewGL2D = _ref2[4];
 
   // Subclass the custom layer view from BaseLayerViewGL2D.
@@ -54,7 +60,9 @@ var animatedLayer = (0, _esriLoader.loadModules)(["esri/Map", "esri/core/watchUt
       // index buffers.
 
       var requestUpdate = function () {
+        // @ts-expect-error ts-migrate(2683) FIXME: 'this' implicitly has type 'any' because it does n... Remove this comment to see the full error message
         this.needsUpdate = true;
+        // @ts-expect-error ts-migrate(2683) FIXME: 'this' implicitly has type 'any' because it does n... Remove this comment to see the full error message
         this.requestRender();
       }.bind(this);
 
@@ -111,7 +119,7 @@ var animatedLayer = (0, _esriLoader.loadModules)(["esri/Map", "esri/core/watchUt
       gl.deleteProgram(this.program);
     },
     // Called every time a frame is rendered.
-    render: function render(renderParameters) {
+    render: function render(renderParameters: any) {
       var gl = renderParameters.context;
       var state = renderParameters.state; // Update vertex positions. This may trigger an update of
       // the vertex coordinates contained in the vertex buffer.
@@ -164,7 +172,7 @@ var animatedLayer = (0, _esriLoader.loadModules)(["esri/Map", "esri/core/watchUt
       this.requestRender();
     },
     // Called by the map view or the popup view when hit testing is required.
-    hitTest: function hitTest(x, y) {
+    hitTest: function hitTest(x: any, y: any) {
       // The map view.
       var view = this.view;
 
@@ -174,13 +182,13 @@ var animatedLayer = (0, _esriLoader.loadModules)(["esri/Map", "esri/core/watchUt
       } // Compute screen distance between each graphic and the test point.
 
 
-      var distances = this.layer.graphics.map(function (graphic) {
+      var distances = this.layer.graphics.map(function (graphic: any) {
         var graphicPoint = view.toScreen(graphic.geometry);
         return Math.sqrt((graphicPoint.x - x) * (graphicPoint.x - x) + (graphicPoint.y - y) * (graphicPoint.y - y));
       }); // Find the minimum distance.
 
       var minIndex = 0;
-      distances.forEach(function (distance, i) {
+      distances.forEach(function (distance: any, i: any) {
         if (distance < distances.getItemAt(minIndex)) {
           minIndex = i;
         }
@@ -199,7 +207,7 @@ var animatedLayer = (0, _esriLoader.loadModules)(["esri/Map", "esri/core/watchUt
       return promiseUtils.resolve(graphic);
     },
     // Called internally from render().
-    updatePositions: function updatePositions(renderParameters) {
+    updatePositions: function updatePositions(renderParameters: any) {
       var gl = renderParameters.context;
       var stationary = renderParameters.stationary;
       var state = renderParameters.state; // If we are not stationary we simply update the `translationToCenter` vector.
@@ -228,10 +236,12 @@ var animatedLayer = (0, _esriLoader.loadModules)(["esri/Map", "esri/core/watchUt
       gl.bindBuffer(gl.ARRAY_BUFFER, this.vertexBuffer);
       var vertexData = new Float32Array(16 * graphics.length);
       var i = 0;
-      graphics.forEach(function (graphic) {
+      graphics.forEach(function (graphic: any) {
         var point = graphic.geometry; // The (x, y) position is relative to the encoded center.
 
+        // @ts-expect-error ts-migrate(2683) FIXME: 'this' implicitly has type 'any' because it does n... Remove this comment to see the full error message
         var x = point.x - this.centerAtLastUpdate[0];
+        // @ts-expect-error ts-migrate(2683) FIXME: 'this' implicitly has type 'any' because it does n... Remove this comment to see the full error message
         var y = point.y - this.centerAtLastUpdate[1];
         vertexData[i * 16 + 0] = x;
         vertexData[i * 16 + 1] = y;
@@ -272,7 +282,7 @@ var animatedLayer = (0, _esriLoader.loadModules)(["esri/Map", "esri/core/watchUt
   }); // Subclass the custom layer view from GraphicsLayer.
 
   var _animatedLayer = GraphicsLayer.createSubclass({
-    createLayerView: function createLayerView(view) {
+    createLayerView: function createLayerView(view: any) {
       this.title = 'Subject Incident'; // We only support MapView, so we only need to return a
       // custom layer view for the `2d` case.
 
