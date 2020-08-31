@@ -1,6 +1,8 @@
 import React, { useCallback, useEffect } from 'react';
 import { useMapContext } from './hook';
-const { loadModules, loadCss, parseVersion } = require('esri-loader');
+const { loadModules, loadCss } = require('esri-loader');
+import type MapView from "esri/views/MapView";
+import type WebMap from "esri/WebMap";
 // this will lazy load the ArcGIS API
 // and then use Dojo's loader to require the map class
 
@@ -20,9 +22,8 @@ const MapInstance = ({
 
     const loadMap = useCallback(async () => {
 
-        let _view, _map;
+        let _view: MapView, _map: WebMap;
         loadCss();
-        console.log(parseVersion());
 
         // @ts-expect-error ts-migrate(7031) FIXME: Binding element 'MapView' implicitly has an 'any' ... Remove this comment to see the full error message
         const loadMap = async ([MapView, WebMap]) => {
@@ -60,7 +61,7 @@ const MapInstance = ({
                 await _view.when();
                 return [_map, _view]
             } catch(e) {
-                return [e, e, e, e]
+                return [e, e]
             }
         };
 

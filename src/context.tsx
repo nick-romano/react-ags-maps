@@ -1,4 +1,6 @@
 import React, { useReducer, useEffect } from 'react';
+import type MapView from "esri/views/MapView";
+import type WebMap from "esri/WebMap";
 const { loadModules } = require('esri-loader');
 
 
@@ -30,7 +32,7 @@ const reducer = (state: any, action: any) => {
                 ...state,
                 initialized: action.payload
             }
-        case "MAP_RENDERED_CHANGED": 
+        case "MAP_RENDERED_CHANGED":
             return {
                 ...state,
                 rendered: action.payload
@@ -40,14 +42,21 @@ const reducer = (state: any, action: any) => {
     }
 }
 
-const initialState = {
+export interface MapState {
+    map: WebMap | null,
+    view: MapView | null,
+    subscriptions: Object,
+    initialized: boolean,
+    rendered: boolean
+}
+
+const initialState: MapState = {
     map: null,
     view: null,
     subscriptions: {},
     initialized: false,
     rendered: false
 }
-
 
 const MapContext = React.createContext(initialState);
 
@@ -68,12 +77,10 @@ const MapProvider = ({
 
     useEffect(() => {
         const asyncEffect = async () => {
-            // @ts-expect-error ts-migrate(7031) FIXME: Binding element 'watchUtils' implicitly has an 'an... Remove this comment to see the full error message
-            await loadModules(['esri/core/watchUtils']).then(function ([watchUtils]) {
-                watchUtils.whenFalseOnce(state.view, 'updating', () => {
-                    dispatch({ type: "MAP_RENDERED_CHANGED", payload: true });
-                })
-            });
+            const [watchUtils] = await loadModules(['esri/core/watchUtils']);
+            watchUtils.whenFalseOnce(state.view, 'updating', () => {
+                dispatch({ type: "MAP_RENDERED_CHANGED", payload: true });
+            })
         };
         state.initialized && asyncEffect();
     }, [state.initialized, state.view]);
