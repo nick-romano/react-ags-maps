@@ -7,6 +7,8 @@ import { MapProps } from './Map';
 // this will lazy load the ArcGIS API
 // and then use Dojo's loader to require the map class
 
+loadCss("https://js.arcgis.com/4.16/esri/themes/dark/main.css");
+
 const MapInstance = ({
     id,
     style,
@@ -24,7 +26,6 @@ const MapInstance = ({
     const loadMap = useCallback(async () => {
 
         let _view: MapView, _map: WebMap;
-        loadCss();
 
         // @ts-expect-error ts-migrate(7031) FIXME: Binding element 'MapView' implicitly has an 'any' ... Remove this comment to see the full error message
         const loadMap = async ([MapView, WebMap]) => {

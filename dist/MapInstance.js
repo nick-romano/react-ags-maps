@@ -71,6 +71,7 @@ var hook_1 = require("./hook");
 var _a = require('esri-loader'), loadModules = _a.loadModules, loadCss = _a.loadCss;
 // this will lazy load the ArcGIS API
 // and then use Dojo's loader to require the map class
+loadCss("https://js.arcgis.com/4.16/esri/themes/dark/main.css");
 var MapInstance = function (_a) {
     var id = _a.id, style = _a.style, children = _a.children, _b = _a.webMapId, webMapId = _b === void 0 ? null : _b, _c = _a.centerX, centerX = _c === void 0 ? 10.546874999 : _c, _d = _a.centerY, centerY = _d === void 0 ? 35.31736 : _d, _e = _a.zoom, zoom = _e === void 0 ? 2 : _e, _f = _a.theme, theme = _f === void 0 ? 'dark' : _f;
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'updateMap' does not exist on type 'unkno... Remove this comment to see the full error message
@@ -80,7 +81,6 @@ var MapInstance = function (_a) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    loadCss();
                     loadMap = function (_a) {
                         var MapView = _a[0], WebMap = _a[1];
                         return __awaiter(void 0, void 0, void 0, function () {
