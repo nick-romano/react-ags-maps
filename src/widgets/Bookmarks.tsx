@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useMapContext } from '../hook';
+import { IWidgetParams } from './BasemapGallery';
 const { loadModules } = require('esri-loader');
 
-const Bookmarks = ({ expander = false, position = "top-right" }) => {
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'view' does not exist on type 'unknown'.
+const Bookmarks = ({ expander = false, position = "top-right" }: IWidgetParams) => {
   const { view } = useMapContext();
 
   useEffect(() => {
@@ -26,9 +26,9 @@ const Bookmarks = ({ expander = false, position = "top-right" }) => {
           view,
           content: bookmarks
         });
-        mounted && view.ui.add(bookmarksExpand, position);
+        mounted && view?.ui.add(bookmarksExpand, position);
       } else {
-        mounted && view.ui.add(bookmarks, position);
+        mounted && view?.ui.add(bookmarks, position);
       }
     }
 

@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import { useMapContext } from '../hook';
+import { IWidgetParams } from './BasemapGallery';
 const { loadModules } = require('esri-loader');
 
-const Zoom = ({ position = "top-right" }) => {
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'view' does not exist on type 'unknown'.
+const Zoom = ({ position = "top-right" } : IWidgetParams) => {
   const { view } = useMapContext();
 
   useEffect(() => {
     let mounted = true;
-    let zoom: any;
+    let zoom: __esri.Zoom;
 
     const asyncEffect = async () => {
       const reqModules = ["esri/widgets/Zoom"];
@@ -19,7 +19,7 @@ const Zoom = ({ position = "top-right" }) => {
         view
       });
       
-      mounted && view.ui.add(zoom, position);
+      mounted && view?.ui.add(zoom, position);
     }
 
     view && view.ready && asyncEffect();

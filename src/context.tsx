@@ -60,14 +60,22 @@ const initialState: MapState = {
 
 const MapContext = React.createContext(initialState);
 
+export interface MapContextProvider extends MapState {
+    updateMap: Function,
+    updateView: Function
+}
+
+export interface ProviderProps {
+    children?: React.ReactNode | null
+}
 
 const MapProvider = ({
     children
-}: any) => {
+}: ProviderProps) => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
-    const updateMap = (map: any) => dispatch({ type: "MAP_CHANGED", payload: map });
-    const updateView = (view: any) => dispatch({ type: "VIEW_CHANGED", payload: view });
+    const updateMap = (map: WebMap) => dispatch({ type: "MAP_CHANGED", payload: map });
+    const updateView = (view: MapView) => dispatch({ type: "VIEW_CHANGED", payload: view });
 
     useEffect(() => {
         if (state.map && state.view) {
@@ -85,20 +93,19 @@ const MapProvider = ({
         state.initialized && asyncEffect();
     }, [state.initialized, state.view]);
 
+    const value: MapContextProvider = {
+        updateMap,
+        updateView,
+        map: state.map,
+        view: state.view,
+        rendered: state.rendered,
+        subscriptions: state.subscriptions,
+        initialized: state.initialized
+    }
 
     return (
-        // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
         <MapContext.Provider
-            value={{
-                // @ts-expect-error ts-migrate(2322) FIXME: Object literal may only specify known properties, ... Remove this comment to see the full error message
-                updateMap,
-                updateView,
-                map: state.map,
-                view: state.view,
-                rendered: state.rendered,
-                subscriptions: state.subscriptions,
-                initialized: state.initialized
-            }}
+            value={value}
         >
             {children}
         </MapContext.Provider>

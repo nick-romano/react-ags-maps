@@ -3,6 +3,7 @@ import { useMapContext } from './hook';
 const { loadModules, loadCss } = require('esri-loader');
 import type MapView from "esri/views/MapView";
 import type WebMap from "esri/WebMap";
+import { MapProps } from './Map';
 // this will lazy load the ArcGIS API
 // and then use Dojo's loader to require the map class
 
@@ -15,7 +16,7 @@ const MapInstance = ({
     centerY=35.31736,
     zoom=2,
     theme='dark'
-}: any) => {
+}: MapProps) => {
 
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'updateMap' does not exist on type 'unkno... Remove this comment to see the full error message
     const { updateMap, updateView } = useMapContext();
@@ -86,7 +87,6 @@ const MapInstance = ({
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-    // @ts-expect-error ts-migrate(17004) FIXME: Cannot use JSX unless the '--jsx' flag is provided... Remove this comment to see the full error message
     return (<div id={id} style={{ width: "100%", height: "100%", ...style }}> {children} </div >)
 };
 

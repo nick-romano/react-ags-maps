@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react';
 import { useMapContext } from '../hook';
 import type { default as BmG } from 'esri/widgets/BasemapGallery';
-import type { default as Exp } from 'esri/widgets/Expand';
 const { loadModules } = require('esri-loader');
 
-export interface UIWidget {
-  expander: boolean,
+export interface IWidgetParams {
+  expander?: boolean,
   position?:
       | "bottom-leading"
       | "bottom-left"
@@ -18,8 +17,7 @@ export interface UIWidget {
       | "manual";
 }
 
-const BaseMapGalleryWidget = ({expander=false, position="top-right"}: UIWidget) => {
-  // @ts-expect-error ts-migrate(2339) FIXME: Property 'view' does not exist on type 'unknown'.
+const BaseMapGalleryWidget = ({expander=false, position="top-right"}: IWidgetParams) => {
   const { view } = useMapContext();
 
   useEffect(() => {
@@ -43,9 +41,9 @@ const BaseMapGalleryWidget = ({expander=false, position="top-right"}: UIWidget) 
           view,
           content: baseMapGallery
         });
-        mounted && view.ui.add(baseMapGalleryExpand, position);
+        mounted && view?.ui.add(baseMapGalleryExpand, position);
       } else {
-        mounted && view.ui.add(baseMapGallery, position);
+        mounted && view?.ui.add(baseMapGallery, position);
       }
     }
 

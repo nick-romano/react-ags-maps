@@ -1,25 +1,28 @@
 import React, { useState, useEffect } from 'react';
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module './hook' or its corresponding t... Remove this comment to see the full error message
-import { useMapContext } from './hook';
+import { useMapContext } from '../hook';
+
+export interface IAccuweatherRadarLayerProps {
+    proxyUrl?: string | null,
+    radarTileService: string,
+    token: string
+}
 
 const AccuweatherRadarLayer = ({
-    proxyUrl = null,
+    proxyUrl = "",
     radarTileService,
     token
-}: any) => {
+}: IAccuweatherRadarLayerProps) => {
     const { loadModules } = require('esri-loader');
     const { map, initialized } = useMapContext();
     const [radarIndex, setRadarIndex] = useState(0);
-    const [looping, setLooping] = useState(false);
-    const [frames, setFrames] = useState([]);
-    const [tileUrl, setTileUrl] = useState(null);
-    const [layerIds, setLayerIds] = useState([]);
-    const [layers, setLayers] = useState([]);
+    const [looping, setLooping] = useState<boolean>(false);
+    const [frames, setFrames] = useState<[]>([]);
+    const [tileUrl, setTileUrl] = useState<string | null>(null);
+    const [layerIds, setLayerIds] = useState<Array<string>>([]);
+    const [layers, setLayers] = useState<__esri.Layer[]>([]);
     const numFrames = 13;
     const tileAlpha = .6;
     const loopTimeInterval = 700;
-    const updateTimeInterval = 2e4;
-    const forceUpdateTimeINterval = 3e5;
     const loopEndLagTime = 2000;
     const params = `?token=${token}&tt=${new Date().toString()}`;
     const url = `${proxyUrl}${radarTileService}${params}`;
@@ -51,19 +54,19 @@ const AccuweatherRadarLayer = ({
     };
 
     useEffect(() => {
-        let _layers: any = [];
-        let _layerIds: any = [];
+        let _layers: __esri.Layer[] = [];
+        let _layerIds: Array<string> = [];
         const createLayer = async () => {
             const radarLoopingIndex = 0;
-            const [WebTileLayer] = await loadModules(["esri/layers/WebTileLayer"]);
+            const [WebTileLayer] : [__esri.WebTileLayerConstructor] = await loadModules(["esri/layers/WebTileLayer"]);
             console.log(map)
             for (let i = 0; i < numFrames; i++) {
                 const url = `${tileUrl}/${frames[i]}/{level}/{col}_{row}.png`;
                 const layer = new WebTileLayer({ urlTemplate: url, listMode: 'hide' });
                 layer.opacity = 0;
-                map.add(layer);
+                map?.add(layer);
                 _layerIds.push(layer.id);
-                _layers.push(map.findLayerById(layer.id));
+                map && _layers.push(map?.findLayerById(layer.id));
             };
             setRadarIndex(1);
             setLayers(_layers);
@@ -80,11 +83,10 @@ const AccuweatherRadarLayer = ({
 
         const updateDisplayLayer = () => {
             var oldLayer = 0 === radarIndex ? layerIds[layerIds.length - 1] : layerIds[radarIndex - 1];
-            map.findLayerById(oldLayer).opacity = 0;
+            map!.findLayerById(oldLayer).opacity = 0;
 
             // Set next layer to specified opacity
             const newLayer = layers[radarIndex];
-            // @ts-expect-error ts-migrate(2339) FIXME: Property 'opacity' does not exist on type 'never'.
             newLayer.opacity = tileAlpha;
 
             const frameTime = frames[radarIndex];
@@ -123,6 +125,12 @@ const AccuweatherRadarLayer = ({
             startLooping(data);
         };
         initialized && startUp();
+
+        return () => {
+            layers.forEach((layer: __esri.Layer) => {
+                map?.layers.remove(layer);
+            });
+        }
     }, [initialized])
 
     return (
