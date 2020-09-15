@@ -27,8 +27,7 @@ const MapInstance = ({
 
         let _view: MapView, _map: WebMap;
 
-        // @ts-expect-error ts-migrate(7031) FIXME: Binding element 'MapView' implicitly has an 'any' ... Remove this comment to see the full error message
-        const loadMap = async ([MapView, WebMap]) => {
+        const loadMap = async ([MapView, WebMap]: [__esri.MapViewConstructor, __esri.WebMapConstructor]) => {
             try {
                 // then we load a web map from an id
                 if (webMapId) {
@@ -44,16 +43,24 @@ const MapInstance = ({
                     });
                 };
 
-                // and we show that map in a container w/ id #viewDiv
-                _view = new MapView({
+                const viewProps: __esri.MapViewProperties = {
                     map: _map,
                     container: id,
-                    center: [centerX, centerY],
                     spatialReference: {
                         wkid: 102100
-                    },
-                    zoom
-                });
+                    }
+                }
+
+                if(centerX && centerY && !webMapId) {
+                    viewProps.center = [centerX, centerY]
+                };
+
+                if(zoom && !webMapId) {
+                    viewProps.zoom = zoom;
+                }
+
+                // and we show that map in a container w/ id #viewDiv
+                _view = new MapView(viewProps);
 
                 // Remove the default widgets
                 _view.ui.components = [];
