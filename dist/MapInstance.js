@@ -84,7 +84,7 @@ var MapInstance = function (_a) {
                     loadMap = function (_a) {
                         var MapView = _a[0], WebMap = _a[1];
                         return __awaiter(void 0, void 0, void 0, function () {
-                            var e_1;
+                            var viewProps, e_1;
                             return __generator(this, function (_b) {
                                 switch (_b.label) {
                                     case 0:
@@ -92,7 +92,7 @@ var MapInstance = function (_a) {
                                         // then we load a web map from an id
                                         if (webMapId) {
                                             _map = new WebMap({
-                                                basemap: "dark-gray-vector",
+                                                // basemap: "dark-gray-vector",
                                                 portalItem: {
                                                     id: webMapId
                                                 }
@@ -104,16 +104,22 @@ var MapInstance = function (_a) {
                                             });
                                         }
                                         ;
-                                        // and we show that map in a container w/ id #viewDiv
-                                        _view = new MapView({
+                                        viewProps = {
                                             map: _map,
                                             container: id,
-                                            center: [centerX, centerY],
                                             spatialReference: {
                                                 wkid: 102100
-                                            },
-                                            zoom: zoom
-                                        });
+                                            }
+                                        };
+                                        if (centerX && centerY && !webMapId) {
+                                            viewProps.center = [centerX, centerY];
+                                        }
+                                        ;
+                                        if (zoom && !webMapId) {
+                                            viewProps.zoom = zoom;
+                                        }
+                                        // and we show that map in a container w/ id #viewDiv
+                                        _view = new MapView(viewProps);
                                         // Remove the default widgets
                                         _view.ui.components = [];
                                         // Adds widget below other elements in the top left corner of the view
