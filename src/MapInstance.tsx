@@ -33,7 +33,7 @@ const MapInstance = ({
                 // then we load a web map from an id
                 if (webMapId) {
                     _map = new WebMap({
-                        basemap: "dark-gray-vector",
+                        // basemap: "dark-gray-vector",
                         portalItem: {
                             id: webMapId
                         }
