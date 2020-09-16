@@ -65,9 +65,13 @@ const MapInstance = ({
                 // Remove the default widgets
                 _view.ui.components = [];
                 // Adds widget below other elements in the top left corner of the view
-                
                 await _map.when();
                 await _view.when();
+
+                if(webMapId) {
+                    _view.extent = _map.portalItem.extent
+                }
+
                 return [_map, _view]
             } catch(e) {
                 return [e, e]

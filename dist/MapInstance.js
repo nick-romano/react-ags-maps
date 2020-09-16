@@ -130,6 +130,9 @@ var MapInstance = function (_a) {
                                         return [4 /*yield*/, _view.when()];
                                     case 2:
                                         _b.sent();
+                                        if (webMapId) {
+                                            _view.extent = _map.portalItem.extent;
+                                        }
                                         return [2 /*return*/, [_map, _view]];
                                     case 3:
                                         e_1 = _b.sent();
