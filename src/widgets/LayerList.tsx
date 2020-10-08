@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 import { useMapContext } from '../hook';
-import type { IWidgetParams } from './BasemapGallery';
-import type { default as LL } from 'esri/widgets/LayerList';
-import type { default as E } from 'esri/widgets/Expand';
+import type { IWidgetParams } from '../common/types';
 const { loadModules } = require('esri-loader');
 
 const LayerList = ({ expander = false, position = "top-right" }: IWidgetParams) => {
@@ -10,14 +8,14 @@ const LayerList = ({ expander = false, position = "top-right" }: IWidgetParams) 
 
   useEffect(() => {
     let mounted: boolean = true;
-    let layerList: LL;
-    let layerListExpand: E;
+    let layerList: __esri.LayerList;
+    let layerListExpand: __esri.Expand;
 
     const asyncEffect = async () => {
       const reqModules = ["esri/widgets/LayerList"];
       if (expander) reqModules.push("esri/widgets/Expand");
 
-      const [LayerList, Expand] = await loadModules(reqModules);
+      const [LayerList, Expand] : [__esri.LayerListConstructor, __esri.ExpandConstructor ] = await loadModules(reqModules);
 
       layerList = new LayerList({
         view

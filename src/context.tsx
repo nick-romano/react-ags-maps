@@ -43,16 +43,16 @@ const reducer = (state: any, action: any) => {
 }
 
 export interface MapState {
-    map: WebMap | null,
-    view: MapView | null,
+    map: WebMap | undefined,
+    view: MapView | undefined,
     subscriptions: Object,
     initialized: boolean,
     rendered: boolean
 }
 
 const initialState: MapState = {
-    map: null,
-    view: null,
+    map: undefined,
+    view: undefined,
     subscriptions: {},
     initialized: false,
     rendered: false
@@ -66,7 +66,7 @@ export interface MapContextProvider extends MapState {
 }
 
 export interface ProviderProps {
-    children?: React.ReactNode | null
+    children?: React.ReactNode | undefined
 }
 
 const MapProvider = ({

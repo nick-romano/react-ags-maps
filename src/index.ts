@@ -12,5 +12,7 @@ export { LayerList } from './widgets';
 export { BasemapGallery } from './widgets';
 export { Bookmarks } from './widgets';
 export { Zoom } from './widgets';
+export { Directions } from './widgets';
+export { Home } from './widgets';
 
 

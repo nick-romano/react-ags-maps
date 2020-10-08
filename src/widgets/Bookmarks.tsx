@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useMapContext } from '../hook';
-import { IWidgetParams } from './BasemapGallery';
+import { IWidgetParams } from '../common/types';
 const { loadModules } = require('esri-loader');
 
 const Bookmarks = ({ expander = false, position = "top-right" }: IWidgetParams) => {
@@ -8,25 +8,26 @@ const Bookmarks = ({ expander = false, position = "top-right" }: IWidgetParams) 
 
   useEffect(() => {
     let mounted = true;
-    let bookmarks: any;
+    let bookmarks: __esri.Bookmarks;
+    let expand: __esri.Expand;
 
     const asyncEffect = async () => {
       const reqModules = ["esri/widgets/Bookmarks"];
       if (expander) reqModules.push("esri/widgets/Expand");
 
-      const [Bookmarks, Expand] = await loadModules(reqModules);
+      const [Bookmarks, Expand]: [__esri.BookmarksConstructor, __esri.ExpandConstructor] = await loadModules(reqModules);
 
       bookmarks = new Bookmarks({
         view
       });
 
       if(expander) {
-        const bookmarksExpand = new Expand({
+        expand = new Expand({
           expandIconClass: "esri-icon-bookmark",  // see https://developers.arcgis.com/javascript/latest/guide/esri-icon-font/
           view,
           content: bookmarks
         });
-        mounted && view?.ui.add(bookmarksExpand, position);
+        mounted && view?.ui.add(expand, position);
       } else {
         mounted && view?.ui.add(bookmarks, position);
       }
@@ -37,6 +38,7 @@ const Bookmarks = ({ expander = false, position = "top-right" }: IWidgetParams) 
     return () => {
       mounted = false;
       bookmarks && bookmarks.destroy();
+      expand && expand.destroy();
     }
   }, [view, expander, position]);
 

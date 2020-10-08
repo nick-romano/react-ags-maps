@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useMapContext } from '../hook';
-import { IWidgetParams } from './BasemapGallery';
+import { IWidgetParams } from '../common/types';
 const { loadModules } = require('esri-loader');
 
 const Legend = ({ expander = false, position = "top-right" }: IWidgetParams) => {
@@ -18,13 +18,13 @@ const Legend = ({ expander = false, position = "top-right" }: IWidgetParams) => 
       const [Legend, Expand]: [__esri.LegendConstructor, __esri.ExpandConstructor | null] = await loadModules(reqModules);
 
       legend = new Legend({
-        view: view!
+        view: view
       });
 
       if(expander) {
         legendExpand = new Expand!({
           expandIconClass: "esri-icon-layer-list",  // see https://developers.arcgis.com/javascript/latest/guide/esri-icon-font/
-          view: view!,
+          view: view,
           content: legend
         });
         mounted && view?.ui.add(legendExpand, position);
