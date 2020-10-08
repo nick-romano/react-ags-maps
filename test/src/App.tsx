@@ -7,7 +7,7 @@ function App() {
     <div className="App">
       <div style={{width: "100vw", height: "100vh"}}>
         <Map id="booboo">
-          <LayerList />
+          <LayerList expander={true} expanderDefaultOpen={true} />
           <Zoom />
           <Home />
           <Directions expander={true} routeServiceUrl="dsadsa" />

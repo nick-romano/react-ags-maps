@@ -3,7 +3,7 @@ import { useMapContext } from '../hook';
 import type { IWidgetParams } from '../common/types';
 const { loadModules } = require('esri-loader');
 
-const LayerList = ({ expander = false, position = "top-right" }: IWidgetParams) => {
+const LayerList = ({ expander = false, expanderDefaultOpen = false, position = "top-right" }: IWidgetParams) => {
   const { view } = useMapContext();
 
   useEffect(() => {
@@ -29,6 +29,9 @@ const LayerList = ({ expander = false, position = "top-right" }: IWidgetParams) 
           content: layerList
         });
         mounted && view?.ui.add(layerListExpand, position);
+
+        expanderDefaultOpen && layerListExpand.expand();
+
       } else {
         mounted && view?.ui.add(layerList, position);
       }

@@ -1,6 +1,6 @@
 {
   "name": "react-ags-maps",
-  "version": "1.0.8",
+  "version": "1.0.11",
   "description": "a hook centric library for creating easy maps with the arcgis api for javascript and react.",
   "main": "dist/index.js",
   "scripts": {

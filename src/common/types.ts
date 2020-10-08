@@ -1,5 +1,6 @@
 export interface IWidgetParams {
   expander?: boolean,
+  expanderDefaultOpen?: boolean,
   position?:
       | "bottom-leading"
       | "bottom-left"
