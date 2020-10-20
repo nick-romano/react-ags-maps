@@ -10,5 +10,6 @@ export interface IWidgetParams {
       | "top-left"
       | "top-right"
       | "top-trailing"
-      | "manual";
+      | "manual",
+    expandIconClass?: string
 }

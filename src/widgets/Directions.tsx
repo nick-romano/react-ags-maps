@@ -3,12 +3,12 @@ import { useMapContext } from '../hook';
 const { loadModules } = require('esri-loader');
 import { IWidgetParams } from '../common/types';
 
-interface DirectionsWidgetInterface extends IWidgetParams {
+export interface IDirectionsWidgetParams extends IWidgetParams {
   routeServiceUrl?: string | undefined;
+  viewModel?: __esri.DirectionsViewModelProperties
 }
 
-const Directions = ({expander=false, position="top-right", ...props }: DirectionsWidgetInterface) => {
-  console.log(props)
+const Directions = ({expander=false, position="top-right", ...props }: IDirectionsWidgetParams) => {
   const { view } = useMapContext();
 
   useEffect(() => {
@@ -17,15 +17,22 @@ const Directions = ({expander=false, position="top-right", ...props }: Direction
     let expandWidget : __esri.Expand;
 
     const asyncEffect = async () => {
-      const reqModules = ["esri/widgets/Directions"];
+      const reqModules = ["esri/widgets/Directions", "esri/widgets/Directions/DirectionsViewModel"];
       if (expander) reqModules.push("esri/widgets/Expand");
 
-      const [Directions, Expand] : [__esri.DirectionsConstructor, __esri.ExpandConstructor] = await loadModules(reqModules);
+      const [Directions, DirectionsVM, Expand] : [__esri.DirectionsConstructor, __esri.DirectionsViewModelConstructor, __esri.ExpandConstructor] = await loadModules(reqModules);
+
+      if(props.viewModel && view) {
+        props.viewModel.view = view;
+      }
 
       directions = new Directions({
         view,
         ...props
       });
+
+      // if(props && props.routeServiceUrl) directions.routeServiceUrl = props.routeServiceUrl;
+      // debugger;
 
       if(expander) {
         const expandWidget = new Expand({

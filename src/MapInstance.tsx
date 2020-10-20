@@ -17,7 +17,8 @@ const MapInstance = ({
     centerX=10.546874999,
     centerY=35.31736,
     zoom=2,
-    theme='dark'
+    theme='dark',
+    ...optionalProps
 }: MapProps) => {
 
     // @ts-expect-error ts-migrate(2339) FIXME: Property 'updateMap' does not exist on type 'unkno... Remove this comment to see the full error message
@@ -39,7 +40,8 @@ const MapInstance = ({
                     });
                 } else {
                     _map = new WebMap({
-                        basemap: "dark-gray-vector"
+                        basemap: "dark-gray-vector",
+                        ...optionalProps.mapProps
                     });
                 };
 
@@ -48,7 +50,8 @@ const MapInstance = ({
                     container: id,
                     spatialReference: {
                         wkid: 102100
-                    }
+                    },
+                    ...optionalProps.viewProps
                 }
 
                 if(centerX && centerY && !webMapId) {

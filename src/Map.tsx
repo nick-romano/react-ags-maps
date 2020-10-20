@@ -11,7 +11,9 @@ export interface MapProps {
     zoom?: number | null,
     portal?: string,
     theme?: |"dark"|"light",
-    children?: React.ReactNode | null
+    children?: React.ReactNode | null,
+    viewProps?: __esri.ViewProperties,
+    mapProps?: __esri.MapProperties
 }
 
 const Map = ({
@@ -22,9 +24,10 @@ const Map = ({
     centerY,
     zoom,
     children,
-    portal
+    portal,
+    ...optionalProps
 }: MapProps) => (
-    <MapProvider><MapInstance id={id} webMapId={webMapId} style={style} centerX={centerX} centerY={centerY} zoom={zoom} portal={portal}>{children}</MapInstance></MapProvider>
+    <MapProvider><MapInstance id={id} webMapId={webMapId} style={style} centerX={centerX} centerY={centerY} zoom={zoom} portal={portal} {...optionalProps}>{children}</MapInstance></MapProvider>
 )
 
 export default Map;
