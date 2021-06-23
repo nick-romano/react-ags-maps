@@ -25,9 +25,10 @@ const Map = ({
     zoom,
     children,
     portal,
+    theme="dark",
     ...optionalProps
 }: MapProps) => (
-    <MapProvider><MapInstance id={id} webMapId={webMapId} style={style} centerX={centerX} centerY={centerY} zoom={zoom} portal={portal} {...optionalProps}>{children}</MapInstance></MapProvider>
+    <MapProvider><MapInstance id={id} webMapId={webMapId} style={style} centerX={centerX} centerY={centerY} zoom={zoom} portal={portal} {...optionalProps} theme={theme}>{children}</MapInstance></MapProvider>
 )
 
 export default Map;

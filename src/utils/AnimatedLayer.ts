@@ -1,6 +1,5 @@
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module 'esri-loader' or its correspond... Remove this comment to see the full error message
 import { loadModules } from 'esri-loader';
-// @ts-expect-error ts-migrate(2307) FIXME: Cannot find module 'gl-matrix' or its correspondin... Remove this comment to see the full error message
+// @ts-ignore-next-line
 import { mat3, vec2, vec3 } from 'gl-matrix';
 
 const animatedLayer = loadModules([
@@ -10,15 +9,15 @@ const animatedLayer = loadModules([
     "esri/layers/GraphicsLayer",
     "esri/views/2d/layers/BaseLayerViewGL2D"
 ]).then(([
-    // @ts-expect-error ts-migrate(7031) FIXME: Binding element 'Map' implicitly has an 'any' type... Remove this comment to see the full error message
+    // @ts-ignore-next-line
     Map,
-    // @ts-expect-error ts-migrate(7031) FIXME: Binding element 'watchUtils' implicitly has an 'an... Remove this comment to see the full error message
+    // @ts-ignore-next-line
     watchUtils,
-    // @ts-expect-error ts-migrate(7031) FIXME: Binding element 'promiseUtils' implicitly has an '... Remove this comment to see the full error message
+    // @ts-ignore-next-line
     promiseUtils,
-    // @ts-expect-error ts-migrate(7031) FIXME: Binding element 'GraphicsLayer' implicitly has an ... Remove this comment to see the full error message
+    // @ts-ignore-next-line
     GraphicsLayer,
-    // @ts-expect-error ts-migrate(7031) FIXME: Binding element 'BaseLayerViewGL2D' implicitly has... Remove this comment to see the full error message
+    // @ts-ignore-next-line
     BaseLayerViewGL2D
 ]) => {
     // Subclass the custom layer view from BaseLayerViewGL2D.

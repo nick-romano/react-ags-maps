@@ -17,3 +17,7 @@ export { Directions } from './widgets';
 export { Home } from './widgets';
 export { BasemapLayerList } from './widgets';
 
+
+// Types
+export * from './Map';
+export * from './widgets/LayerList';

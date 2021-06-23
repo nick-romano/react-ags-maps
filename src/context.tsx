@@ -50,20 +50,23 @@ export interface MapState {
     rendered: boolean
 }
 
-const initialState: MapState = {
-    map: undefined,
-    view: undefined,
-    subscriptions: {},
-    initialized: false,
-    rendered: false
-}
-
-const MapContext = React.createContext(initialState);
-
 export interface MapContextProvider extends MapState {
     updateMap: Function,
     updateView: Function
 }
+
+const initialState: MapContextProvider = {
+    map: undefined,
+    view: undefined,
+    subscriptions: {},
+    initialized: false,
+    rendered: false,
+    updateMap: () => {},
+    updateView: () => {}
+}
+
+const MapContext = React.createContext(initialState);
+
 
 export interface ProviderProps {
     children?: React.ReactNode | undefined

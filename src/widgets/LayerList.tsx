@@ -3,7 +3,9 @@ import { useMapContext } from '../hook';
 import type { IWidgetParams } from '../common/types';
 const { loadModules } = require('esri-loader');
 
-const LayerList = ({ expander = false, expanderDefaultOpen = false, position = "top-right" }: IWidgetParams) => {
+export interface ILayerListProps extends IWidgetParams {}
+
+const LayerList = ({ expander = false, expanderDefaultOpen = false, position = "top-right" }: ILayerListProps) => {
   const { view } = useMapContext();
 
   useEffect(() => {

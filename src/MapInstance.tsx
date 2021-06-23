@@ -1,28 +1,32 @@
 import React, { useCallback, useEffect } from 'react';
 import { useMapContext } from './hook';
-const { loadModules, loadCss } = require('esri-loader');
+const { loadModules } = require('esri-loader');
 import type MapView from "esri/views/MapView";
 import type WebMap from "esri/WebMap";
 import { MapProps } from './Map';
 // this will lazy load the ArcGIS API
 // and then use Dojo's loader to require the map class
 
-loadCss("https://js.arcgis.com/4.16/esri/themes/dark/main.css");
-
 const MapInstance = ({
     id,
     style,
     children,
     webMapId = null,
-    centerX=10.546874999,
-    centerY=35.31736,
-    zoom=2,
-    theme='dark',
+    centerX = 10.546874999,
+    centerY = 35.31736,
+    zoom = 2,
+    theme = 'dark',
     ...optionalProps
 }: MapProps) => {
-
-    // @ts-expect-error ts-migrate(2339) FIXME: Property 'updateMap' does not exist on type 'unkno... Remove this comment to see the full error message
+    
     const { updateMap, updateView } = useMapContext();
+
+    useEffect(() => {
+        if (typeof (document) !== "undefined") {
+            const { loadCss } = require('esri-loader');
+            loadCss(`https://js.arcgis.com/4.16/esri/themes/${theme.toLowerCase()}/main.css`);
+        }
+    }, []);
 
     const loadMap = useCallback(async () => {
 
@@ -38,9 +42,11 @@ const MapInstance = ({
                             id: webMapId
                         }
                     });
+
+                    _map.set({...optionalProps.mapProps});
                 } else {
                     _map = new WebMap({
-                        basemap: "dark-gray-vector",
+                        basemap: theme === "dark" ? "dark-gray-vector" : "gray-vector",
                         ...optionalProps.mapProps
                     });
                 };
@@ -54,11 +60,11 @@ const MapInstance = ({
                     ...optionalProps.viewProps
                 }
 
-                if(centerX && centerY && !webMapId) {
+                if (centerX && centerY && !webMapId && !viewProps.center) {
                     viewProps.center = [centerX, centerY]
                 };
 
-                if(zoom && !webMapId) {
+                if (zoom && !webMapId && !viewProps.zoom) {
                     viewProps.zoom = zoom;
                 }
 
@@ -71,20 +77,20 @@ const MapInstance = ({
                 await _map.when();
                 await _view.when();
 
-                if(webMapId) {
+                if (webMapId) {
                     _view.extent = _map.portalItem.extent
                 }
 
                 return [_map, _view]
-            } catch(e) {
+            } catch (e) {
                 return [e, e]
             }
         };
 
-        const modules = await loadModules(['esri/views/MapView',"esri/WebMap"]);
+        const modules = await loadModules(['esri/views/MapView', "esri/WebMap"]);
         return await loadMap(modules);
-  
-      }, [centerX, centerY, id, webMapId, zoom]);
+
+    }, [centerX, centerY, id, webMapId, zoom]);
 
     useEffect(() => {
         let map: any, view: any;
