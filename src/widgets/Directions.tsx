@@ -8,7 +8,7 @@ export interface IDirectionsWidgetParams extends IWidgetParams {
   viewModel?: __esri.DirectionsViewModelProperties
 }
 
-const Directions = ({expander=false, position="top-right", ...props }: IDirectionsWidgetParams) => {
+const Directions = ({ expander = false, position = "top-right", expandIconClass = "esri-icon-directions", ...props }: IDirectionsWidgetParams) => {
   const { view } = useMapContext();
 
   useEffect(() => {
@@ -20,7 +20,7 @@ const Directions = ({expander=false, position="top-right", ...props }: IDirectio
       const reqModules = ["esri/widgets/Directions", "esri/widgets/Directions/DirectionsViewModel"];
       if (expander) reqModules.push("esri/widgets/Expand");
 
-      const [Directions, DirectionsVM, Expand] : [__esri.DirectionsConstructor, __esri.DirectionsViewModelConstructor, __esri.ExpandConstructor] = await loadModules(reqModules);
+      const [Directions, Expand] : [__esri.DirectionsConstructor, __esri.ExpandConstructor] = await loadModules(reqModules);
 
       if(props.viewModel && view) {
         props.viewModel.view = view;
@@ -36,7 +36,7 @@ const Directions = ({expander=false, position="top-right", ...props }: IDirectio
 
       if(expander) {
         const expandWidget = new Expand({
-          expandIconClass: "esri-icon-directions",  // see https://developers.arcgis.com/javascript/latest/guide/esri-icon-font/
+          expandIconClass,  // see https://developers.arcgis.com/javascript/latest/guide/esri-icon-font/
           // expandTooltip: "Expand baseMapGallery", // optional, defaults to "Expand" for English locale
           view,
           content: directions

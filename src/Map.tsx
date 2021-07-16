@@ -25,7 +25,7 @@ const Map = ({
     zoom,
     children,
     portal,
-    theme="dark",
+    theme="light",
     ...optionalProps
 }: MapProps) => (
     <MapProvider><MapInstance id={id} webMapId={webMapId} style={style} centerX={centerX} centerY={centerY} zoom={zoom} portal={portal} {...optionalProps} theme={theme}>{children}</MapInstance></MapProvider>

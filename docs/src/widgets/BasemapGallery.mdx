@@ -1,59 +1,55 @@
 ---
-name: LayerList
+name: BasemapGallery
 menu: Map Widgets
 priority: 1
 ---
 
 import { Playground, Props } from 'docz'
 import { Map } from 'react-ags-maps'
-import LayerList from './LayerList.tsx'
+import BasemapGallery from './BasemapGallery.tsx'
 
-# LayerList
-The layerlist component reads the map layers and renders a list of layers in the map. This is just a wrapper of the esri 4.x layerlist widget, plus an easy props implementation of the "expander"
+# BasemapGallery
+The BasemapGallery component reads the map layers and renders a list of layers in the map. This is just a wrapper of the esri 4.x layerlist widget, plus an easy props implementation of the "expander"
+
 
 ## Import
-<code>{`import { LayerList } from 'react-ags-maps'`}</code>
+<code>{`import { BasemapGallery } from 'react-ags-maps'`}</code>
 
 ## Basic usage
 
 <Playground>
     <div style={{height: "500px", width: "100%"}}>
-        <Map id="basicLayerList" webMapId="f2e9b762544945f390ca4ac3671cfa72">
-            <LayerList />
+        <Map id="BasemapGallery" webMapId="f2e9b762544945f390ca4ac3671cfa72">
+            <BasemapGallery />
         </Map>
     </div>
 </Playground>
 
 ## Properties
-<Props of={LayerList} />
+<Props of={BasemapGallery} />
 
 ## `widgetArgs` Prop
-The `widgetArgs` prop accepts properties of the widget as defined in the official docs. See [https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-LayerList.html](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-LayerList.html) for the full list of properties available.
+The `widgetArgs` prop accepts properties of the widget as defined in the official docs. See [https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-BasemapGallery.html](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-BasemapGallery.html) for the full list of properties available.
 <Playground>
     <div style={{height: "500px", width: "100%"}}>
-        <Map id="widgetArgsLayerList" webMapId="f2e9b762544945f390ca4ac3671cfa72">
-            <LayerList widgetArgs={{
-                multipleSelectionEnabled: true,
-                label: "custom label",
-                selectionEnabled: true,
-                visibleElements: {
-                    statusIndicators: false
-                }
+        <Map id="widgetArgsBasemapGallery" webMapId="f2e9b762544945f390ca4ac3671cfa72">
+            <BasemapGallery widgetArgs={{
+                disabled: true
             }}
             />
         </Map>
     </div>
 </Playground>
 
-
+ 
 ## `expander` Prop
 The `expander` contains the layer list behind an icon button that can toggle.
 
 
 <Playground>
     <div style={{height: "500px", width: "100%"}}>
-        <Map id="layerListExpander" webMapId="f2e9b762544945f390ca4ac3671cfa72">
-            <LayerList expander />
+        <Map id="BasemapGalleryExpander" webMapId="f2e9b762544945f390ca4ac3671cfa72">
+            <BasemapGallery expander />
         </Map>
     </div>
 </Playground>
@@ -64,8 +60,8 @@ The `expandIconClass` prop allows you to change the icon of the expander. you ca
 
 <Playground>
     <div style={{height: "500px", width: "100%"}}>
-        <Map id="layerListExpanderIcon" webMapId="f2e9b762544945f390ca4ac3671cfa72">
-            <LayerList expander expandIconClass={'esri-icon-collection'} />
+        <Map id="BasemapGalleryExpanderIcon" webMapId="f2e9b762544945f390ca4ac3671cfa72">
+            <BasemapGallery expander expandIconClass={'esri-icon-collection'} />
         </Map>
     </div>
 </Playground>
@@ -77,8 +73,8 @@ The `expandWidgetArgs` prop allows you to add any additional arguments to the ex
 
 <Playground>
     <div style={{height: "500px", width: "100%"}}>
-        <Map id="layerListExpandWidgetArgs" webMapId="f2e9b762544945f390ca4ac3671cfa72">
-            <LayerList 
+        <Map id="BasemapGalleryexpandWidgetArgs" webMapId="f2e9b762544945f390ca4ac3671cfa72">
+            <BasemapGallery 
                 expander
                 expandIconClass={'esri-icon-collection'}
                 expandWidgetArgs={{

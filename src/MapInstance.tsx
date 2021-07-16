@@ -1,8 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import { useMapContext } from './hook';
 const { loadModules } = require('esri-loader');
-import type MapView from "esri/views/MapView";
-import type WebMap from "esri/WebMap";
 import { MapProps } from './Map';
 // this will lazy load the ArcGIS API
 // and then use Dojo's loader to require the map class
@@ -15,7 +13,7 @@ const MapInstance = ({
     centerX = 10.546874999,
     centerY = 35.31736,
     zoom = 2,
-    theme = 'dark',
+    theme = "light",
     ...optionalProps
 }: MapProps) => {
     
@@ -24,15 +22,16 @@ const MapInstance = ({
     useEffect(() => {
         if (typeof (document) !== "undefined") {
             const { loadCss } = require('esri-loader');
-            loadCss(`https://js.arcgis.com/4.16/esri/themes/${theme.toLowerCase()}/main.css`);
+            const g = require('esri-loader');
+            theme && (theme === "light" || theme === "dark") && loadCss(`https://js.arcgis.com/4.20/esri/themes/${theme.toLowerCase()}/main.css`);
         }
-    }, []);
+    }, [theme]);
 
     const loadMap = useCallback(async () => {
 
-        let _view: MapView, _map: WebMap;
+        let _view: __esri.MapView, _map: __esri.WebMap;
 
-        const loadMap = async ([MapView, WebMap]: [__esri.MapViewConstructor, __esri.WebMapConstructor]) => {
+        const loadMap = async ([WebMap, MapView]: [__esri.WebMapConstructor, __esri.MapViewConstructor]) => {
             try {
                 // then we load a web map from an id
                 if (webMapId) {
@@ -86,16 +85,21 @@ const MapInstance = ({
                 return [e, e]
             }
         };
+        
+        const imports: [
+            Promise<typeof import("@arcgis/core/WebMap")>, 
+            Promise<typeof import("@arcgis/core/views/MapView")>
+        ] = [import('@arcgis/core/WebMap'), import('@arcgis/core/views/MapView')];
 
-        const modules = await loadModules(['esri/views/MapView', "esri/WebMap"]);
-        return await loadMap(modules);
+        const [WebMap, MapView] = await Promise.all(imports);
+
+        return await loadMap([WebMap.default, MapView.default]);
 
     }, [centerX, centerY, id, webMapId, zoom]);
 
     useEffect(() => {
         let map: any, view: any;
         const asyncEffects = async () => {
-            // eslint-disable-next-line no-unused-vars
             const [map, view] = await loadMap();
             view && updateView(view);
             map && updateMap(map);
@@ -108,6 +112,7 @@ const MapInstance = ({
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
     return (<div id={id} style={{ width: "100%", height: "100%", ...style }}> {children} </div >)
 };
 

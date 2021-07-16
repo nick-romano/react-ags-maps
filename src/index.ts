@@ -21,3 +21,4 @@ export { BasemapLayerList } from './widgets';
 // Types
 export * from './Map';
 export * from './widgets/LayerList';
+export { IBaseMapGalleryWidget } from './widgets/BasemapGallery';

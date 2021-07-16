@@ -49,9 +49,9 @@ const animatedLayer = loadModules([
             // `needsUpdate` is true may cause an update of the vertex and
             // index buffers.
             var requestUpdate = function () {
-                // @ts-expect-error ts-migrate(2683) FIXME: 'this' implicitly has type 'any' because it does n... Remove this comment to see the full error message
+                //@ts-ignore
                 this.needsUpdate = true;
-                // @ts-expect-error ts-migrate(2683) FIXME: 'this' implicitly has type 'any' because it does n... Remove this comment to see the full error message
+                //@ts-ignore
                 this.requestRender();
             }.bind(this);
 
@@ -321,9 +321,9 @@ const animatedLayer = loadModules([
                     var point = graphic.geometry;
 
                     // The (x, y) position is relative to the encoded center.
-                    // @ts-expect-error ts-migrate(2683) FIXME: 'this' implicitly has type 'any' because it does n... Remove this comment to see the full error message
+                    //@ts-ignore (2683) FIXME: 'this' implicitly has type 'any' because it does n... Remove this comment to see the full error message
                     var x = point.x - this.centerAtLastUpdate[0];
-                    // @ts-expect-error ts-migrate(2683) FIXME: 'this' implicitly has type 'any' because it does n... Remove this comment to see the full error message
+                    //@ts-ignore // @ts-expect-error ts-migrate(2683) FIXME: 'this' implicitly has type 'any' because it does n... Remove this comment to see the full error message
                     var y = point.y - this.centerAtLastUpdate[1];
 
                     vertexData[i * 16 + 0] = x;

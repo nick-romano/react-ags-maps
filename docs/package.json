@@ -8,12 +8,12 @@
     "serve": "docz serve"
   },
   "dependencies": {
-    "docz": "latest",
+    "@types/arcgis-js-api": "../node_modules/@types/arcgis-js-api",
+    "docz": "^2.3.1",
     "esri-loader": "^3.1.0",
     "prop-types": "^15.7.2",
     "react": "../node_modules/react",
     "react-ags-maps": "file:..",
-    "react-dom": "../node_modules/react-dom",
-    "@types/arcgis-js-api": "../node_modules/@types/arcgis-js-api"
+    "react-dom": "../node_modules/react-dom"
   }
 }
