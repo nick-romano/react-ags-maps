@@ -77,8 +77,12 @@ const MapProvider = ({
 }: ProviderProps) => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
-    const updateMap = (map: WebMap) => dispatch({ type: "MAP_CHANGED", payload: map });
-    const updateView = (view: MapView) => dispatch({ type: "VIEW_CHANGED", payload: view });
+    const updateMap = (map: WebMap) => 
+        dispatch({ type: "MAP_CHANGED", payload: map }
+    );
+    const updateView = (view: MapView) => 
+        dispatch({ type: "VIEW_CHANGED", payload: view }
+    );
 
     useEffect(() => {
         if (state.map && state.view) {

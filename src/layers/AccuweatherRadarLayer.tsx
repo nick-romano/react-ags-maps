@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useMapContext } from '../hook';
+import useMapContext from '../hook';
 
 export interface IAccuweatherRadarLayerProps {
     proxyUrl?: string | null,

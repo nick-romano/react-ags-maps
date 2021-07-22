@@ -51,6 +51,9 @@
   },
   "jest": {
     "testEnvironment": "jsdom",
-    "moduleFileExtensions": ["js", "jsx", "ts", "tsx"]
+    "moduleFileExtensions": ["js", "jsx", "ts", "tsx"],
+    "testMatch": [
+      "**/?(*.)+(spec|test).[jt]s?(x)"
+    ]
   }
 }

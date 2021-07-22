@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useMapContext } from '../hook';
+import useMapContext from '../hook';
 const { loadModules } = require('esri-loader');
 
 const FeatureLayer = ({ ...props } : __esri.FeatureLayerProperties) => {

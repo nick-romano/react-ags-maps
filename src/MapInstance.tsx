@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect } from 'react';
-import { useMapContext } from './hook';
-const { loadModules } = require('esri-loader');
+import useMapContext from './hook';
 import { MapProps } from './Map';
 // this will lazy load the ArcGIS API
 // and then use Dojo's loader to require the map class
@@ -16,7 +15,7 @@ const MapInstance = ({
     theme = "light",
     ...optionalProps
 }: MapProps) => {
-    
+
     const { updateMap, updateView } = useMapContext();
 
     useEffect(() => {
@@ -32,62 +31,59 @@ const MapInstance = ({
         let _view: __esri.MapView, _map: __esri.WebMap;
 
         const loadMap = async ([WebMap, MapView]: [__esri.WebMapConstructor, __esri.MapViewConstructor]) => {
-            try {
-                // then we load a web map from an id
-                if (webMapId) {
-                    _map = new WebMap({
-                        // basemap: "dark-gray-vector",
-                        portalItem: {
-                            id: webMapId
-                        }
-                    });
+            // then we load a web map from an id
+            if (webMapId) {
+                _map = new WebMap({
+                    // basemap: "dark-gray-vector",
+                    portalItem: {
+                        id: webMapId
+                    }
+                });
 
-                    _map.set({...optionalProps.mapProps});
-                } else {
-                    _map = new WebMap({
-                        basemap: theme === "dark" ? "dark-gray-vector" : "gray-vector",
-                        ...optionalProps.mapProps
-                    });
-                };
+                _map.set({ ...optionalProps.mapProps });
+            } else {
+                _map = new WebMap({
+                    basemap: theme === "dark" ? "dark-gray-vector" : "gray-vector",
+                    ...optionalProps.mapProps
+                });
+            };
 
-                const viewProps: __esri.MapViewProperties = {
-                    map: _map,
-                    container: id,
-                    spatialReference: {
-                        wkid: 102100
-                    },
-                    ...optionalProps.viewProps
-                }
-
-                if (centerX && centerY && !webMapId && !viewProps.center) {
-                    viewProps.center = [centerX, centerY]
-                };
-
-                if (zoom && !webMapId && !viewProps.zoom) {
-                    viewProps.zoom = zoom;
-                }
-
-                // and we show that map in a container w/ id #viewDiv
-                _view = new MapView(viewProps);
-
-                // Remove the default widgets
-                _view.ui.components = [];
-                // Adds widget below other elements in the top left corner of the view
-                await _map.when();
-                await _view.when();
-
-                if (webMapId) {
-                    _view.extent = _map.portalItem.extent
-                }
-
-                return [_map, _view]
-            } catch (e) {
-                return [e, e]
+            const viewProps: __esri.MapViewProperties = {
+                map: _map,
+                container: id,
+                spatialReference: {
+                    wkid: 102100
+                },
+                ...optionalProps.viewProps
             }
+
+            if (centerX && centerY && !webMapId && !viewProps.center) {
+                viewProps.center = [centerX, centerY]
+            };
+
+            if (zoom && !webMapId && !viewProps.zoom) {
+                viewProps.zoom = zoom;
+            }
+
+            // and we show that map in a container w/ id #viewDiv
+            _view = new MapView(viewProps);
+
+            // Remove the default widgets
+            _view.ui.components = [];
+            // Adds widget below other elements in the top left corner of the view
+            await _map.when();
+            await _view.when();
+
+            if (webMapId) {
+                _view.extent = _map.portalItem.extent
+            }
+
+            return [_map, _view]
+
         };
-        
+
         const imports: [
-            Promise<typeof import("@arcgis/core/WebMap")>, 
+            Promise<typeof import("@arcgis/core/WebMap")>,
             Promise<typeof import("@arcgis/core/views/MapView")>
         ] = [import('@arcgis/core/WebMap'), import('@arcgis/core/views/MapView')];
 

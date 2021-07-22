@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useMapContext } from '../hook';
+import useMapContext from '../hook';
 import type { IWidgetParams } from '../common/types';
 import { addExpander } from '../utils/addExpander';
 import widgetDefaultProps from '../consts/widgetDefaultProps';

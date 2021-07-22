@@ -1,6 +1,9 @@
 import React from "react";
 import { render } from '@testing-library/react';
 import MapInstance from "../MapInstance";
+import setMocks from './setMocks';
+
+setMocks();
 
 
 const id = 'myId';
@@ -17,26 +20,8 @@ const defaultMapViewConstructorArgs = {
         "wkid": 102100
     },
     "zoom": 2
-}
+};
 
-
-beforeEach(() => {
-    jest.clearAllMocks();
-    jest.mock("@arcgis/core/WebMap", () => ({
-        __esModule: true,
-        default: jest.fn().mockImplementation((args: __esri.MapViewConstructor) => ({ set: jest.fn(), ...args }))
-    }));
-
-    jest.mock("@arcgis/core/views/MapView", () => ({
-        __esModule: true,
-        default: jest.fn().mockImplementation((args: __esri.MapViewConstructor) => ({ args }))
-    }));
-
-    jest.mock('esri-loader', () => ({
-        __esModule: true,
-        loadCss: jest.fn()
-    }))
-});
 
 describe('testing Map Instance Props', () => {
     it('should render and call WebMap and MapView with default arguments', async () => {

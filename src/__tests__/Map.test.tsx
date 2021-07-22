@@ -1,7 +1,15 @@
-import React from "react";
-import { render } from '@testing-library/react';
-import Map from "../Map";
+import React, { useReducer } from "react";
+import { render, act } from '@testing-library/react';
+import { Map } from "../";
+import setMocks from './setMocks';
 
+jest.mock('../hook', () => ({
+    __esModule: true,
+    default: jest.fn().mockImplementation(() => ({
+        updateMap: jest.fn(),
+        updateView: jest.fn()
+    }))
+}));
 
 const id = 'myId';
 
@@ -17,31 +25,14 @@ const defaultMapViewConstructorArgs = {
         "wkid": 102100
     },
     "zoom": 2
-}
+};
 
-
-beforeEach(() => {
-    jest.clearAllMocks();
-    jest.mock("@arcgis/core/WebMap", () => ({
-        __esModule: true,
-        default: jest.fn().mockImplementation((args: __esri.MapViewConstructor) => ({ set: jest.fn(), ...args }))
-    }));
-
-    jest.mock("@arcgis/core/views/MapView", () => ({
-        __esModule: true,
-        default: jest.fn().mockImplementation((args: __esri.MapViewConstructor) => ({ args }))
-    }));
-
-    jest.mock('esri-loader', () => ({
-        __esModule: true,
-        loadCss: jest.fn()
-    }))
-});
+setMocks();
 
 describe('smoke test Map render', () => {
     it('should render and call WebMap and MapView with default arguments', async () => {
 
-        await render(<Map id={id} />);
+        act(() => {render(<Map id={id} />)});
 
         const WebMap = await import("@arcgis/core/WebMap");
         const MapView = await import("@arcgis/core/views/MapView");

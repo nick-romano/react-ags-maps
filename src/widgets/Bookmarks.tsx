@@ -1,48 +1,62 @@
 import React, { useEffect } from 'react';
-import { useMapContext } from '../hook';
+import useMapContext from '../hook';
 import { IWidgetParams } from '../common/types';
 const { loadModules } = require('esri-loader');
+import { addExpander } from '../utils/addExpander';
+import widgetDefaultProps from '../consts/widgetDefaultProps';
 
-const Bookmarks = ({ expander = false, position = "top-right" }: IWidgetParams) => {
+export interface IBookmarksProps extends IWidgetParams<__esri.BookmarksProperties> { };
+
+const Bookmarks = ({
+  expander = widgetDefaultProps.expander,
+  expanderDefaultOpen = widgetDefaultProps.expanderDefaultOpen,
+  position = widgetDefaultProps.position,
+  widgetArgs = widgetDefaultProps.widgetArgs,
+  expandWidgetArgs = widgetDefaultProps.expandWidgetArgs,
+  expandIconClass = "esri-icon-bookmark"
+}: IBookmarksProps) => {
   const { view } = useMapContext();
 
   useEffect(() => {
-    let mounted = true;
-    let bookmarks: __esri.Bookmarks;
+    let mounted: boolean = true;
+    let widget: __esri.Bookmarks;
     let expand: __esri.Expand;
 
     const asyncEffect = async () => {
-      const reqModules = ["esri/widgets/Bookmarks"];
-      if (expander) reqModules.push("esri/widgets/Expand");
 
-      const [Bookmarks, Expand]: [__esri.BookmarksConstructor, __esri.ExpandConstructor] = await loadModules(reqModules);
+      const _import = await import('@arcgis/core/widgets/Bookmarks');
 
-      bookmarks = new Bookmarks({
-        view
+      const { default: Bookmarks } = _import;
+
+      widget = new Bookmarks({
+        view,
+        ...widgetArgs
       });
 
-      if(expander) {
-        expand = new Expand({
-          expandIconClass: "esri-icon-bookmark",  // see https://developers.arcgis.com/javascript/latest/guide/esri-icon-font/
-          view,
-          content: bookmarks
+      if (expander) {
+        expand = await addExpander({
+          view: view!,
+          widgetContent: widget,
+          expandIconClass,
+          position,
+          defaultOpen: expanderDefaultOpen,
+          expandWidgetArgs
         });
-        mounted && view?.ui.add(expand, position);
       } else {
-        mounted && view?.ui.add(bookmarks, position);
+        mounted && view?.ui.add(widget, position);
       }
     }
 
-    view && view.ready && asyncEffect();
+    view?.ready && asyncEffect();
 
     return () => {
       mounted = false;
-      bookmarks && bookmarks.destroy();
-      expand && expand.destroy();
+      widget?.destroy();
+      expand?.destroy();
     }
   }, [view, expander, position]);
 
-  return (<></>);
+  return null;
 
 };
 

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useMapContext } from '../hook';
+import useMapContext from '../hook';
 import { IWidgetParams } from '../common/types';
 const { loadModules } = require('esri-loader');
 
