@@ -1,63 +1,64 @@
 import React, { useEffect } from 'react';
-import { useMapContext } from '../hook';
-const { loadModules } = require('esri-loader');
+import useMapContext from '../hook';
 import { IWidgetParams } from '../common/types';
+import { addExpander } from '../utils/addExpander';
+import widgetDefaultProps from '../consts/widgetDefaultProps';
 
-export interface IDirectionsWidgetParams extends IWidgetParams {
-  routeServiceUrl?: string | undefined;
-  viewModel?: __esri.DirectionsViewModelProperties
-}
+export interface IDirectionsProps extends IWidgetParams<__esri.DirectionsProperties> { };
 
-const Directions = ({expander=false, position="top-right", ...props }: IDirectionsWidgetParams) => {
+
+const Directions = ({
+  expander = widgetDefaultProps.expander,
+  expanderDefaultOpen = widgetDefaultProps.expanderDefaultOpen,
+  position = widgetDefaultProps.position,
+  widgetArgs = widgetDefaultProps.widgetArgs,
+  expandWidgetArgs = widgetDefaultProps.expandWidgetArgs,
+  expandIconClass = "esri-icon-directions"
+}: IDirectionsProps) => {
   const { view } = useMapContext();
 
   useEffect(() => {
-    let mounted = true;
-    let directions: __esri.Directions;
-    let expandWidget : __esri.Expand;
+    let mounted: boolean = true;
+    let widget: __esri.Directions;
+    let expand: __esri.Expand;
 
     const asyncEffect = async () => {
-      const reqModules = ["esri/widgets/Directions", "esri/widgets/Directions/DirectionsViewModel"];
-      if (expander) reqModules.push("esri/widgets/Expand");
 
-      const [Directions, DirectionsVM, Expand] : [__esri.DirectionsConstructor, __esri.DirectionsViewModelConstructor, __esri.ExpandConstructor] = await loadModules(reqModules);
+      const _import = await import('@arcgis/core/widgets/Directions');
 
-      if(props.viewModel && view) {
-        props.viewModel.view = view;
-      }
+      const { default: Directions } = _import;
 
-      directions = new Directions({
+      widget = new Directions({
         view,
-        ...props
+        ...widgetArgs
       });
 
-      // if(props && props.routeServiceUrl) directions.routeServiceUrl = props.routeServiceUrl;
-      // debugger;
-
-      if(expander) {
-        const expandWidget = new Expand({
-          expandIconClass: "esri-icon-directions",  // see https://developers.arcgis.com/javascript/latest/guide/esri-icon-font/
-          // expandTooltip: "Expand baseMapGallery", // optional, defaults to "Expand" for English locale
-          view,
-          content: directions
+      if (expander) {
+        expand = await addExpander({
+          view: view!,
+          widgetContent: widget,
+          expandIconClass,
+          position,
+          defaultOpen: expanderDefaultOpen,
+          expandWidgetArgs
         });
-        mounted && view?.ui.add(expandWidget, position);
       } else {
-        mounted && view?.ui.add(directions, position);
+        mounted && view?.ui.add(widget, position);
       }
     }
 
-    view && view.ready && asyncEffect();
+    view?.ready && asyncEffect();
 
     return () => {
       mounted = false;
-      directions && directions.destroy();
-      expandWidget && expandWidget.destroy();
+      widget?.destroy();
+      expand?.destroy();
     }
   }, [view, expander, position]);
 
   return null;
 
 };
+
 
 export default Directions;

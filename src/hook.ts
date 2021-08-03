@@ -5,4 +5,4 @@ const useMapContext = () => {
   return useContext(MapContext);
 }
 
-export { useMapContext };
+export default useMapContext;

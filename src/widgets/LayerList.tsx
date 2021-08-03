@@ -1,39 +1,48 @@
 import React, { useEffect } from 'react';
-import { useMapContext } from '../hook';
+import useMapContext from '../hook';
 import type { IWidgetParams } from '../common/types';
-const { loadModules } = require('esri-loader');
+import { addExpander } from '../utils/addExpander';
+import widgetDefaultProps from '../consts/widgetDefaultProps';
 
-const LayerList = ({ expander = false, expanderDefaultOpen = false, position = "top-right" }: IWidgetParams) => {
+export interface ILayerListProps extends IWidgetParams<__esri.LayerListProperties> { };
+
+const LayerList = ({
+  expander = widgetDefaultProps.expander,
+  expanderDefaultOpen = widgetDefaultProps.expanderDefaultOpen,
+  position = widgetDefaultProps.position,
+  widgetArgs = widgetDefaultProps.widgetArgs,
+  expandWidgetArgs = widgetDefaultProps.expandWidgetArgs,
+  expandIconClass = "esri-icon-layers"
+}: ILayerListProps) => {
   const { view } = useMapContext();
 
   useEffect(() => {
     let mounted: boolean = true;
-    let layerList: __esri.LayerList;
-    let layerListExpand: __esri.Expand;
+    let widget: __esri.LayerList;
+    let expand: __esri.Expand;
 
     const asyncEffect = async () => {
-      const reqModules = ["esri/widgets/LayerList"];
-      if (expander) reqModules.push("esri/widgets/Expand");
 
-      const [LayerList, Expand] : [__esri.LayerListConstructor, __esri.ExpandConstructor ] = await loadModules(reqModules);
+      const _import = await import('@arcgis/core/widgets/LayerList');
 
-      layerList = new LayerList({
-        view
+      const { default: LayerList } = _import;
+
+      widget = new LayerList({
+        view,
+        ...widgetArgs
       });
 
-      if(expander) {
-        layerListExpand = new Expand({
-          expandIconClass: "esri-icon-layers",  // see https://developers.arcgis.com/javascript/latest/guide/esri-icon-font/
-          // expandTooltip: "Expand LayerList", // optional, defaults to "Expand" for English locale
-          view,
-          content: layerList
+      if (expander) {
+        expand = await addExpander({
+          view: view!,
+          widgetContent: widget,
+          expandIconClass,
+          position,
+          defaultOpen: expanderDefaultOpen,
+          expandWidgetArgs
         });
-        mounted && view?.ui.add(layerListExpand, position);
-
-        expanderDefaultOpen && layerListExpand.expand();
-
       } else {
-        mounted && view?.ui.add(layerList, position);
+        mounted && view?.ui.add(widget, position);
       }
     }
 
@@ -41,14 +50,13 @@ const LayerList = ({ expander = false, expanderDefaultOpen = false, position = "
 
     return () => {
       mounted = false;
-      layerList?.destroy();
-      layerListExpand?.destroy();
+      widget?.destroy();
+      expand?.destroy();
     }
   }, [view, expander, position]);
 
-  return (<></>);
+  return null;
 
 };
-
 
 export default LayerList;

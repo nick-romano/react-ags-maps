@@ -1,48 +1,62 @@
 import React, { useEffect } from 'react';
-import { useMapContext } from '../hook';
+import useMapContext from '../hook';
 import { IWidgetParams } from '../common/types';
-const { loadModules } = require('esri-loader');
+import { addExpander } from '../utils/addExpander';
+import widgetDefaultProps from '../consts/widgetDefaultProps';
 
-const Legend = ({ expander = false, position = "top-right" }: IWidgetParams) => {
+export interface ILegendProps extends IWidgetParams<__esri.LegendProperties> { };
+
+
+const Legend = ({ 
+  expander = widgetDefaultProps.expander,
+  expanderDefaultOpen = widgetDefaultProps.expanderDefaultOpen,
+  position = widgetDefaultProps.position,
+  widgetArgs = widgetDefaultProps.widgetArgs,
+  expandWidgetArgs = widgetDefaultProps.expandWidgetArgs,
+  expandIconClass = "esri-icon-legend"
+}: ILegendProps) => {
   const { view } = useMapContext();
 
   useEffect(() => {
-    let mounted = true;
-    let legend: __esri.Legend;
-    let legendExpand: __esri.Expand;
+    let mounted: boolean = true;
+    let widget: __esri.Legend;
+    let expand: __esri.Expand;
 
     const asyncEffect = async () => {
-      const reqModules = ["esri/widgets/Legend"];
-      if (expander) reqModules.push("esri/widgets/Expand");
 
-      const [Legend, Expand]: [__esri.LegendConstructor, __esri.ExpandConstructor | null] = await loadModules(reqModules);
+      const _import = await import('@arcgis/core/widgets/Legend');
 
-      legend = new Legend({
-        view: view
+      const { default: Legend } = _import;
+
+      widget = new Legend({
+        view,
+        ...widgetArgs
       });
 
-      if(expander) {
-        legendExpand = new Expand!({
-          expandIconClass: "esri-icon-layer-list",  // see https://developers.arcgis.com/javascript/latest/guide/esri-icon-font/
-          view: view,
-          content: legend
+      if (expander) {
+        expand = await addExpander({
+          view: view!,
+          widgetContent: widget,
+          expandIconClass,
+          position,
+          defaultOpen: expanderDefaultOpen,
+          expandWidgetArgs
         });
-        mounted && view?.ui.add(legendExpand, position);
       } else {
-        mounted && view?.ui.add(legend, position);
+        mounted && view?.ui.add(widget, position);
       }
     }
 
-    view && view.ready && asyncEffect();
+    view?.ready && asyncEffect();
 
     return () => {
       mounted = false;
-      legend?.destroy();
-      legendExpand?.destroy();
+      widget?.destroy();
+      expand?.destroy();
     }
   }, [view, expander, position]);
 
-  return (<></>);
+  return null;
 
 };
 

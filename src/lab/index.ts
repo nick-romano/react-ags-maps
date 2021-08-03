@@ -1,0 +1,1 @@
+// export { default as AnimatedPointLayer } from './AnimatedPointLayer';

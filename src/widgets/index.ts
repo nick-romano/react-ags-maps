@@ -5,4 +5,3 @@ export { default as Bookmarks } from './Bookmarks';
 export { default as Zoom } from './Zoom';
 export { default as Directions } from './Directions';
 export { default as Home } from './Home';
-export { default as BasemapLayerList } from './BasemapLayerList';

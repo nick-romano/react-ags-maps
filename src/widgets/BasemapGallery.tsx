@@ -1,49 +1,62 @@
 import React, { useEffect } from 'react';
-import { useMapContext } from '../hook';
+import useMapContext from '../hook';
 import type { IWidgetParams } from '../common/types';
-const { loadModules } = require('esri-loader');
+import { addExpander } from '../utils/addExpander';
+import widgetDefaultProps from '../consts/widgetDefaultProps';
 
-const BaseMapGalleryWidget = ({ expander = false, position = "top-right" }: IWidgetParams) => {
+export interface IBaseMapGalleryWidget extends IWidgetParams<__esri.BasemapGalleryProperties> {};
+
+const BaseMapGalleryWidget = ({ 
+    expander = widgetDefaultProps.expander,
+    expanderDefaultOpen = widgetDefaultProps.expanderDefaultOpen,
+    position = widgetDefaultProps.position,
+    widgetArgs = widgetDefaultProps.widgetArgs,
+    expandWidgetArgs = widgetDefaultProps.expandWidgetArgs,
+    expandIconClass = "esri-icon-basemap"
+  }: IBaseMapGalleryWidget) => {
+     
   const { view } = useMapContext();
 
   useEffect(() => {
-    let mounted = true;
-    let baseMapGallery: __esri.BasemapGallery;
+    let mounted: boolean = true;
+    let widget: __esri.BasemapGallery;
     let expand: __esri.Expand;
 
     const asyncEffect = async () => {
-      const reqModules = ["esri/widgets/BasemapGallery"];
-      if (expander) reqModules.push("esri/widgets/Expand");
 
-      const [BaseMapGallery, Expand] = await loadModules(reqModules);
+      const _import = await import('@arcgis/core/widgets/BasemapGallery');
 
-      baseMapGallery = new BaseMapGallery({
-        view
+      const { default: BasemapGallery } = _import;
+
+      widget = new BasemapGallery({
+        view,
+        ...widgetArgs
       });
 
       if (expander) {
-        expand = new Expand({
-          expandIconClass: "esri-icon-basemap",  // see https://developers.arcgis.com/javascript/latest/guide/esri-icon-font/
-          expandTooltip: "Expand Basemap Selector", // optional, defaults to "Expand" for English locale
-          view,
-          content: baseMapGallery
+        expand = await addExpander({
+          view: view!,
+          widgetContent: widget,
+          expandIconClass,
+          position,
+          defaultOpen: expanderDefaultOpen,
+          expandWidgetArgs
         });
-        mounted && view?.ui.add(expand, position);
       } else {
-        mounted && view?.ui.add(baseMapGallery, position);
+        mounted && view?.ui.add(widget, position);
       }
     }
 
-    view && view.ready && asyncEffect();
+    view?.ready && asyncEffect();
 
     return () => {
       mounted = false;
-      baseMapGallery && baseMapGallery.destroy();
-      expand && expand.destroy();
+      widget?.destroy();
+      expand?.destroy();
     }
   }, [view, expander, position]);
 
-  return (<></>);
+  return null;
 
 };
 

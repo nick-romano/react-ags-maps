@@ -1,0 +1,73 @@
+---
+name: Map
+menu: Map Component
+---
+
+import { Playground, Props } from 'docz'
+import Map from './Map.tsx'
+
+# Map
+
+
+## Basic usage
+
+<Playground>
+    <div style={{height: "500px", width: "100%"}}>
+        <Map id="myMap" theme="light"></Map>
+    </div>
+</Playground>
+
+## Properties
+<Props of={Map} />
+<b>viewProps and mapProps accept parameters from that ArcGIS for JavaScript API.</b> <br />
+- <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-views-View.html#properties-summary" target="_blank">viewProps</a> <br/>
+- <a href="https://developers.arcgis.com/javascript/latest/api-reference/esri-Map.html#properties-summary" target="_blank">mapProps</a>
+
+## Examples
+
+
+### passing a webMapId
+we can easily load a webmap using the webMapId prop
+<Playground>
+    <div style={{height: "500px", width: "100%"}}>
+        <Map id="webmap" theme="light" webMapId="f2e9b762544945f390ca4ac3671cfa72"></Map>
+    </div>
+</Playground>
+
+### Passing Custom mapProps
+we'll use a different basemap based on passing different mapProps. In this case we'll use the topo basemap
+<Playground>
+    <div style={{height: "500px", width: "100%"}}>
+        <Map id="TopoBasemap" theme="light" mapProps={{basemap: "topo"}} webMapId="f2e9b762544945f390ca4ac3671cfa72"></Map>
+    </div>
+</Playground>
+
+### Passing Custom viewProps
+let's disable mouseWheelZoomEnabled and momentumEnabled, and add a zoom and center
+<Playground>
+    <div style={{height: "500px", width: "100%"}}>
+        <Map 
+            id="viewProps"
+            viewProps={{
+                center: [176.185, -37.643],
+                zoom: 13,
+                navigation: {
+                    gamepad: {
+                        enabled: false
+                    },
+                    browserTouchPanEnabled: false,
+                    momentumEnabled: false,
+                    mouseWheelZoomEnabled: false
+                }}
+            }
+        />
+    </div>
+</Playground>
+
+### centerX, centerY, and zoom Props
+you can also centerX, centerY, and zoom thru props
+<Playground>
+    <div style={{height: "500px", width: "100%"}}>
+        <Map id="zoomProps" zoom={8} centerX={-76.44} centerY={39.3} />
+    </div>
+</Playground>

@@ -1,0 +1,36 @@
+---
+name: Map Image Layer
+menu: Map Layers
+priority: 1
+---
+
+import { Playground, Props } from 'docz';
+import { Map, LayerList, Zoom } from 'react-ags-maps';
+import MapImageLayer from './MapImageLayer';
+
+# MapImage Layer
+MapImageLayer takes all the properties of `esri/layers/MapImageLayer` and uses them as props.
+
+## Import
+<code>{`import { MapImageLayer } from 'react-ags-maps'`}</code>
+
+## Basic usage
+
+<Playground>
+    <div style={{height: "500px", width: "100%"}}>
+        <Map 
+            id="basicMapImageLayer"
+            centerX={-97.039099}
+            centerY={39.415220}
+            zoom={3}
+            viewProps={{popup: {defaultPopupTemplateEnabled: true}}}
+        >
+            <Zoom />
+            <LayerList position="bottom-right" />
+            <MapImageLayer url="https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/" />
+        </Map>
+    </div>
+</Playground>
+
+## Properties
+<Props of={MapImageLayer} />

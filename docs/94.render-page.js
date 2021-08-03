@@ -1,0 +1,93 @@
+exports.ids = [94];
+exports.modules = {
+
+/***/ "../../node_modules/@arcgis/core/layers/support/lazyLayerLoader.js":
+/*!*************************************************************************************************************!*\
+  !*** C:/Users/chubs/development/react-ags-maps/node_modules/@arcgis/core/layers/support/lazyLayerLoader.js ***!
+  \*************************************************************************************************************/
+/*! exports provided: layerLookupMap */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "layerLookupMap", function() { return a; });
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.20/esri/copyright.txt for details.
+*/
+const a={BingMapsLayer:async()=>(await __webpack_require__.e(/*! import() */ 149).then(__webpack_require__.bind(null, /*! ../BingMapsLayer.js */ "../../node_modules/@arcgis/core/layers/BingMapsLayer.js"))).default,BuildingSceneLayer:async()=>(await Promise.all(/*! import() */[__webpack_require__.e(27), __webpack_require__.e(61)]).then(__webpack_require__.bind(null, /*! ../BuildingSceneLayer.js */ "../../node_modules/@arcgis/core/layers/BuildingSceneLayer.js"))).default,CSVLayer:async()=>(await __webpack_require__.e(/*! import() */ 150).then(__webpack_require__.bind(null, /*! ../CSVLayer.js */ "../../node_modules/@arcgis/core/layers/CSVLayer.js"))).default,ElevationLayer:async()=>(await Promise.all(/*! import() */[__webpack_require__.e(26), __webpack_require__.e(50)]).then(__webpack_require__.bind(null, /*! ../ElevationLayer.js */ "../../node_modules/@arcgis/core/layers/ElevationLayer.js"))).default,FeatureLayer:async()=>(await Promise.resolve(/*! import() */).then(__webpack_require__.bind(null, /*! ../FeatureLayer.js */ "../../node_modules/@arcgis/core/layers/FeatureLayer.js"))).default,GroupLayer:async()=>(await __webpack_require__.e(/*! import() */ 54).then(__webpack_require__.bind(null, /*! ../GroupLayer.js */ "../../node_modules/@arcgis/core/layers/GroupLayer.js"))).default,GeoRSSLayer:async()=>(await __webpack_require__.e(/*! import() */ 171).then(__webpack_require__.bind(null, /*! ../GeoRSSLayer.js */ "../../node_modules/@arcgis/core/layers/GeoRSSLayer.js"))).default,ImageryLayer:async()=>(await Promise.all(/*! import() */[__webpack_require__.e(19), __webpack_require__.e(31), __webpack_require__.e(41), __webpack_require__.e(64)]).then(__webpack_require__.bind(null, /*! ../ImageryLayer.js */ "../../node_modules/@arcgis/core/layers/ImageryLayer.js"))).default,ImageryTileLayer:async()=>(await Promise.all(/*! import() */[__webpack_require__.e(19), __webpack_require__.e(31), __webpack_require__.e(41), __webpack_require__.e(34), __webpack_require__.e(58)]).then(__webpack_require__.bind(null, /*! ../ImageryTileLayer.js */ "../../node_modules/@arcgis/core/layers/ImageryTileLayer.js"))).default,IntegratedMeshLayer:async()=>(await Promise.all(/*! import() */[__webpack_require__.e(27), __webpack_require__.e(89)]).then(__webpack_require__.bind(null, /*! ../IntegratedMeshLayer.js */ "../../node_modules/@arcgis/core/layers/IntegratedMeshLayer.js"))).default,KMLLayer:async()=>(await __webpack_require__.e(/*! import() */ 92).then(__webpack_require__.bind(null, /*! ../KMLLayer.js */ "../../node_modules/@arcgis/core/layers/KMLLayer.js"))).default,MapImageLayer:async()=>(await Promise.resolve(/*! import() */).then(__webpack_require__.bind(null, /*! ../MapImageLayer.js */ "../../node_modules/@arcgis/core/layers/MapImageLayer.js"))).default,MapNotesLayer:async()=>(await __webpack_require__.e(/*! import() */ 151).then(__webpack_require__.bind(null, /*! ../MapNotesLayer.js */ "../../node_modules/@arcgis/core/layers/MapNotesLayer.js"))).default,OGCFeatureLayer:async()=>(await Promise.all(/*! import() */[__webpack_require__.e(49), __webpack_require__.e(152)]).then(__webpack_require__.bind(null, /*! ../OGCFeatureLayer.js */ "../../node_modules/@arcgis/core/layers/OGCFeatureLayer.js"))).default,OpenStreetMapLayer:async()=>(await __webpack_require__.e(/*! import() */ 100).then(__webpack_require__.bind(null, /*! ../OpenStreetMapLayer.js */ "../../node_modules/@arcgis/core/layers/OpenStreetMapLayer.js"))).default,PointCloudLayer:async()=>(await Promise.all(/*! import() */[__webpack_require__.e(27), __webpack_require__.e(44), __webpack_require__.e(79)]).then(__webpack_require__.bind(null, /*! ../PointCloudLayer.js */ "../../node_modules/@arcgis/core/layers/PointCloudLayer.js"))).default,RouteLayer:async()=>(await __webpack_require__.e(/*! import() */ 172).then(__webpack_require__.bind(null, /*! ../RouteLayer.js */ "../../node_modules/@arcgis/core/layers/RouteLayer.js"))).default,SceneLayer:async()=>(await Promise.all(/*! import() */[__webpack_require__.e(27), __webpack_require__.e(91)]).then(__webpack_require__.bind(null, /*! ../SceneLayer.js */ "../../node_modules/@arcgis/core/layers/SceneLayer.js"))).default,StreamLayer:async()=>(await __webpack_require__.e(/*! import() */ 153).then(__webpack_require__.bind(null, /*! ../StreamLayer.js */ "../../node_modules/@arcgis/core/layers/StreamLayer.js"))).default,TileLayer:async()=>(await Promise.all(/*! import() */[__webpack_require__.e(26), __webpack_require__.e(173)]).then(__webpack_require__.bind(null, /*! ../TileLayer.js */ "../../node_modules/@arcgis/core/layers/TileLayer.js"))).default,UnknownLayer:async()=>(await __webpack_require__.e(/*! import() */ 174).then(__webpack_require__.bind(null, /*! ../UnknownLayer.js */ "../../node_modules/@arcgis/core/layers/UnknownLayer.js"))).default,UnsupportedLayer:async()=>(await __webpack_require__.e(/*! import() */ 175).then(__webpack_require__.bind(null, /*! ../UnsupportedLayer.js */ "../../node_modules/@arcgis/core/layers/UnsupportedLayer.js"))).default,VectorTileLayer:async()=>(await Promise.all(/*! import() */[__webpack_require__.e(32), __webpack_require__.e(26), __webpack_require__.e(71)]).then(__webpack_require__.bind(null, /*! ../VectorTileLayer.js */ "../../node_modules/@arcgis/core/layers/VectorTileLayer.js"))).default,WebTileLayer:async()=>(await __webpack_require__.e(/*! import() */ 155).then(__webpack_require__.bind(null, /*! ../WebTileLayer.js */ "../../node_modules/@arcgis/core/layers/WebTileLayer.js"))).default,WFSLayer:async()=>(await Promise.all(/*! import() */[__webpack_require__.e(46), __webpack_require__.e(154)]).then(__webpack_require__.bind(null, /*! ../WFSLayer.js */ "../../node_modules/@arcgis/core/layers/WFSLayer.js"))).default,WMSLayer:async()=>(await __webpack_require__.e(/*! import() */ 93).then(__webpack_require__.bind(null, /*! ../WMSLayer.js */ "../../node_modules/@arcgis/core/layers/WMSLayer.js"))).default,WMTSLayer:async()=>(await __webpack_require__.e(/*! import() */ 87).then(__webpack_require__.bind(null, /*! ../WMTSLayer.js */ "../../node_modules/@arcgis/core/layers/WMTSLayer.js"))).default};
+
+
+/***/ }),
+
+/***/ "../../node_modules/@arcgis/core/portal/support/jsonContext.js":
+/*!*********************************************************************************************************!*\
+  !*** C:/Users/chubs/development/react-ags-maps/node_modules/@arcgis/core/portal/support/jsonContext.js ***!
+  \*********************************************************************************************************/
+/*! exports provided: createForItem */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "createForItem", function() { return o; });
+/* harmony import */ var _core_urlUtils_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../core/urlUtils.js */ "../../node_modules/@arcgis/core/core/urlUtils.js");
+/* harmony import */ var _Portal_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Portal.js */ "../../node_modules/@arcgis/core/portal/Portal.js");
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.20/esri/copyright.txt for details.
+*/
+function o(o){return{origin:"portal-item",url:Object(_core_urlUtils_js__WEBPACK_IMPORTED_MODULE_0__["urlToObject"])(o.itemUrl),portal:o.portal||_Portal_js__WEBPACK_IMPORTED_MODULE_1__["default"].getDefault(),portalItem:o,readResourcePaths:[]}}
+
+
+/***/ }),
+
+/***/ "../../node_modules/@arcgis/core/portal/support/layersLoader.js":
+/*!**********************************************************************************************************!*\
+  !*** C:/Users/chubs/development/react-ags-maps/node_modules/@arcgis/core/portal/support/layersLoader.js ***!
+  \**********************************************************************************************************/
+/*! exports provided: getFirstLayerOrTableId, getNumLayersAndTables, load, preprocessFSItemData */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getFirstLayerOrTableId", function() { return f; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getNumLayersAndTables", function() { return h; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "load", function() { return o; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "preprocessFSItemData", function() { return m; });
+/* harmony import */ var _core_Error_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../core/Error.js */ "../../node_modules/@arcgis/core/core/Error.js");
+/* harmony import */ var _layers_support_lazyLayerLoader_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../layers/support/lazyLayerLoader.js */ "../../node_modules/@arcgis/core/layers/support/lazyLayerLoader.js");
+/* harmony import */ var _Portal_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../Portal.js */ "../../node_modules/@arcgis/core/portal/Portal.js");
+/* harmony import */ var _jsonContext_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./jsonContext.js */ "../../node_modules/@arcgis/core/portal/support/jsonContext.js");
+/* harmony import */ var _renderers_support_styleUtils_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../renderers/support/styleUtils.js */ "../../node_modules/@arcgis/core/renderers/support/styleUtils.js");
+/* harmony import */ var _support_requestPresets_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../support/requestPresets.js */ "../../node_modules/@arcgis/core/support/requestPresets.js");
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.20/esri/copyright.txt for details.
+*/
+async function o(e,t){const r=e.instance.portalItem;return r&&r.id?(await r.load(t),s(e),i(e,t)):Promise.resolve()}function s(t){const r=t.instance.portalItem;if(-1===t.supportedTypes.indexOf(r.type))throw new _core_Error_js__WEBPACK_IMPORTED_MODULE_0__["default"]("portal:invalid-layer-item-type","Invalid layer item type '${type}', expected '${expectedType}'",{type:r.type,expectedType:t.supportedTypes.join(", ")})}async function i(e,t){const r=e.instance,a=r.portalItem,{url:o,title:s}=a,i=Object(_jsonContext_js__WEBPACK_IMPORTED_MODULE_3__["createForItem"])(a);if("group"===r.type)return r.read({title:s},i),u(r,e);o&&r.read({url:o},i);const c=await y(e,t);return c&&r.read(c,i),r.resourceReferences={portalItem:a,paths:i.readResourcePaths},r.read({title:s},i),Object(_renderers_support_styleUtils_js__WEBPACK_IMPORTED_MODULE_4__["loadStyleRenderer"])(r,i)}function u(r,n){let l;const a=r.portalItem.type;switch(a){case"Feature Service":l=_layers_support_lazyLayerLoader_js__WEBPACK_IMPORTED_MODULE_1__["layerLookupMap"].FeatureLayer;break;case"Stream Service":l=_layers_support_lazyLayerLoader_js__WEBPACK_IMPORTED_MODULE_1__["layerLookupMap"].StreamLayer;break;case"Scene Service":l=_layers_support_lazyLayerLoader_js__WEBPACK_IMPORTED_MODULE_1__["layerLookupMap"].SceneLayer;break;case"Feature Collection":l=_layers_support_lazyLayerLoader_js__WEBPACK_IMPORTED_MODULE_1__["layerLookupMap"].FeatureLayer;break;default:throw new _core_Error_js__WEBPACK_IMPORTED_MODULE_0__["default"]("portal:unsupported-item-type-as-group",`The item type '${a}' is not supported as a 'IGroupLayer'`)}let o;return l().then((e=>(o=e,y(n)))).then((async e=>"Feature Service"===a?(e=await m(e,r.portalItem.url),p(r,o,e)):h(e)>0?p(r,o,e):c(r,o)))}function c(e,t){return e.portalItem.url?Object(_support_requestPresets_js__WEBPACK_IMPORTED_MODULE_5__["requestArcGISServiceJSON"])(e.portalItem.url).then((r=>{var n,l;function a(e){return{id:e.id,name:e.name}}r&&p(e,t,{layers:null==(n=r.layers)?void 0:n.map(a),tables:null==(l=r.tables)?void 0:l.map(a)})})):Promise.resolve()}function p(e,t,r){let n=r.layers||[];const l=r.tables||[];"Feature Collection"===e.portalItem.type&&(n.forEach((e=>{var t;"Table"===(null==e||null==(t=e.layerDefinition)?void 0:t.type)&&l.push(e)})),n=n.filter((e=>{var t;return"Table"!==(null==e||null==(t=e.layerDefinition)?void 0:t.type)}))),n.reverse().forEach((n=>{const l=d(e,t,r,n);e.add(l)})),l.reverse().forEach((n=>{const l=d(e,t,r,n);e.tables.add(l)}))}function d(e,t,n,l){const a=new t({portalItem:e.portalItem.clone(),layerId:l.id,sublayerTitleMode:"service-name"});if("Feature Collection"===e.portalItem.type){const t={origin:"portal-item",portal:e.portalItem.portal||_Portal_js__WEBPACK_IMPORTED_MODULE_2__["default"].getDefault()};a.read(l,t);const o=n.showLegend;null!=o&&a.read({showLegend:o},t)}return a}function y(e,t){if(!1===e.supportsData)return Promise.resolve(void 0);const r=e.instance;return r.portalItem.fetchData("json",t).catch((()=>null)).then((async e=>{if(I(r)){let t,n=!0;return e&&h(e)>0&&(null==r.layerId&&(r.layerId=f(e)),t=v(e,r.layerId),t&&(1===h(e)&&(n=!1),null!=e.showLegend&&(t.showLegend=e.showLegend))),n&&"service-name"!==r.sublayerTitleMode&&(r.sublayerTitleMode="item-title-and-service-name"),t}return e}))}async function m(e,t){var r,n;if(null==(null==(r=e)?void 0:r.layers)||null==(null==(n=e)?void 0:n.tables)){const r=await Object(_support_requestPresets_js__WEBPACK_IMPORTED_MODULE_5__["requestArcGISServiceJSON"])(t);(e=e||{}).layers=e.layers||(null==r?void 0:r.layers),e.tables=e.tables||(null==r?void 0:r.tables)}return e}function f(e){const t=e.layers;if(t&&t.length)return t[0].id;const r=e.tables;return r&&r.length?r[0].id:null}function v(e,t){const r=e.layers;if(r)for(let l=0;l<r.length;l++)if(r[l].id===t)return r[l];const n=e.tables;if(n)for(let l=0;l<n.length;l++)if(n[l].id===t)return n[l];return null}function h(e){var t,r,n,l;return(null!=(t=null==e||null==(r=e.layers)?void 0:r.length)?t:0)+(null!=(n=null==e||null==(l=e.tables)?void 0:l.length)?n:0)}function I(e){return"stream"!==e.type&&"layerId"in e}
+
+
+/***/ }),
+
+/***/ "../../node_modules/@arcgis/core/support/requestPresets.js":
+/*!*****************************************************************************************************!*\
+  !*** C:/Users/chubs/development/react-ags-maps/node_modules/@arcgis/core/support/requestPresets.js ***!
+  \*****************************************************************************************************/
+/*! exports provided: requestArcGISServiceJSON */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "requestArcGISServiceJSON", function() { return n; });
+/* harmony import */ var _request_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../request.js */ "../../node_modules/@arcgis/core/request.js");
+/*
+All material copyright ESRI, All Rights Reserved, unless otherwise specified.
+See https://js.arcgis.com/4.20/esri/copyright.txt for details.
+*/
+async function n(n){const{data:o}=await Object(_request_js__WEBPACK_IMPORTED_MODULE_0__["default"])(n,{responseType:"json",query:{f:"json"}});return o}
+
+
+/***/ })
+
+};;
+//# sourceMappingURL=94.render-page.js.map
