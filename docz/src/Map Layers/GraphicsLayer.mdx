@@ -1,0 +1,49 @@
+---
+name: Graphics Layer
+menu: Map Layers
+priority: 1
+---
+
+import { Playground, Props } from 'docz';
+import { Map, LayerList, Zoom } from 'react-ags-maps';
+import GraphicsLayer from './GraphicsLayer';
+
+# Graphics Layer
+GraphicsLayer takes all the properties of `esri/layers/GraphicsLayer` and uses them as props.
+
+## Import
+<code>{`import { GraphicsLayer } from 'react-ags-maps'`}</code>
+
+## Basic usage
+
+<Playground>
+    <div style={{height: "500px", width: "100%"}}>
+        <Map 
+            id="basicGraphicsLayer"
+            centerX={-97.039099}
+            centerY={39.415220}
+            zoom={3}
+            viewProps={{popup: {defaultPopupTemplateEnabled: true}}}
+            mapProps={{basemap: "streets-vector"}}
+        >
+            <Zoom />
+            <LayerList position="bottom-right" />
+            <GraphicsLayer 
+                graphics={{
+                    geometry: {
+                        type: "point",
+                        x: -98.11,
+                        y: 40.11,
+                        spatialReference: {
+                            wkid: 4326
+                        }
+                    }
+                }}
+                title="My Graphics Layer"
+            />
+        </Map>
+    </div>
+</Playground>
+
+## Properties
+<Props of={GraphicsLayer} />

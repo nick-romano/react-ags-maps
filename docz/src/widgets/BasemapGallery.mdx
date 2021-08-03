@@ -1,0 +1,85 @@
+---
+name: BasemapGallery
+menu: Map Widgets
+priority: 1
+---
+
+import { Playground, Props } from 'docz'
+import { Map } from 'react-ags-maps'
+import BasemapGallery from './BasemapGallery.tsx'
+
+# BasemapGallery
+
+## Import
+<code>{`import { BasemapGallery } from 'react-ags-maps'`}</code>
+
+## Basic usage
+
+<Playground>
+    <div style={{height: "500px", width: "100%"}}>
+        <Map id="BasemapGallery" webMapId="f2e9b762544945f390ca4ac3671cfa72">
+            <BasemapGallery />
+        </Map>
+    </div>
+</Playground>
+
+## Properties
+<Props of={BasemapGallery} />
+
+## `widgetArgs` Prop
+The `widgetArgs` prop accepts properties of the widget as defined in the official docs. See [https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-BasemapGallery.html](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-BasemapGallery.html) for the full list of properties available.
+<Playground>
+    <div style={{height: "500px", width: "100%"}}>
+        <Map id="widgetArgsBasemapGallery" webMapId="f2e9b762544945f390ca4ac3671cfa72">
+            <BasemapGallery widgetArgs={{
+                disabled: true
+            }}
+            />
+        </Map>
+    </div>
+</Playground>
+
+ 
+## `expander` Prop
+The `expander` contains the layer list behind an icon button that can toggle.
+
+
+<Playground>
+    <div style={{height: "500px", width: "100%"}}>
+        <Map id="BasemapGalleryExpander" webMapId="f2e9b762544945f390ca4ac3671cfa72">
+            <BasemapGallery expander />
+        </Map>
+    </div>
+</Playground>
+
+## `expandIconClass` Prop
+The `expandIconClass` prop allows you to change the icon of the expander. you can choose other classes from here [https://developers.arcgis.com/javascript/latest/esri-icon-font/](https://developers.arcgis.com/javascript/latest/esri-icon-font/)
+
+
+<Playground>
+    <div style={{height: "500px", width: "100%"}}>
+        <Map id="BasemapGalleryExpanderIcon" webMapId="f2e9b762544945f390ca4ac3671cfa72">
+            <BasemapGallery expander expandIconClass={'esri-icon-blank-map-pin'} />
+        </Map>
+    </div>
+</Playground>
+
+## `expandWidgetArgs` Prop
+The `expandWidgetArgs` prop allows you to add any additional arguments to the expand constructor. see the official docs for what you can add here.
+[https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Expand.html](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Expand.html)
+
+
+<Playground>
+    <div style={{height: "500px", width: "100%"}}>
+        <Map id="BasemapGalleryexpandWidgetArgs" webMapId="f2e9b762544945f390ca4ac3671cfa72">
+            <BasemapGallery 
+                expander
+                expandIconClass={'esri-icon-blank-map-pin'}
+                expandWidgetArgs={{
+                    mode: "drawer",
+                    expandTooltip: "Custom Tooltip"
+                }}
+            />
+        </Map>
+    </div>
+</Playground>

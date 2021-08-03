@@ -56,7 +56,7 @@ const Legend = ({
     }
   }, [view, expander, position]);
 
-  return (<></>);
+  return null;
 
 };
 

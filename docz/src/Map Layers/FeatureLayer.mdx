@@ -1,0 +1,96 @@
+---
+name: Feature Layer
+menu: Map Layers
+priority: 1
+---
+
+import { Playground, Props } from 'docz';
+import { Map, LayerList, Zoom } from 'react-ags-maps';
+import FeatureLayer from './FeatureLayer';
+
+# Feature Layer
+FeatureLayer takes all the properties of `esri/layers/FeatureLayer` and uses them as props.
+
+## Import
+<code>{`import { FeatureLayer } from 'react-ags-maps'`}</code>
+
+## Basic usage
+
+<Playground>
+    <div style={{height: "500px", width: "100%"}}>
+        <Map 
+            id="basicFeatureLayer"
+            centerX={-97.039099}
+            centerY={39.415220}
+            zoom={3}
+            viewProps={{popup: {defaultPopupTemplateEnabled: true}}}
+        >
+            <Zoom />
+            <LayerList position="bottom-right" />
+            <FeatureLayer url="https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/0" />
+        </Map>
+    </div>
+</Playground>
+
+## Properties
+<Props of={FeatureLayer} />
+
+
+## Advanced Usage
+
+<Playground>
+    <div style={{height: "500px", width: "100%"}}>
+        <Map 
+            id="AdvancedFeatureLayer"
+            centerX={-97.039099}
+            centerY={39.415220}
+            zoom={3}
+            mapProps={{basemap: "topo-vector"}}
+        >
+            <Zoom />
+            <LayerList position="bottom-right" />
+            <FeatureLayer 
+                url="https://sampleserver6.arcgisonline.com/arcgis/rest/services/USA/MapServer/0" 
+                popupEnabled={true}
+                featureReduction={{
+                    type: "cluster",
+                    clusterRadius: "100px",
+                    popupTemplate: {
+                        title: "Cluster summary",
+                        content: "This cluster represents {cluster_count} cities.",
+                        fieldInfos: [
+                        {
+                            fieldName: "cluster_count",
+                            format: {
+                            places: 0,
+                            digitSeparator: true
+                            }
+                        }
+                        ]
+                    },
+                    clusterMinSize: "24px",
+                    clusterMaxSize: "60px",
+                    labelingInfo: [
+                        {
+                        deconflictionStrategy: "none",
+                        labelExpressionInfo: {
+                            expression: "Text($feature.cluster_count, '#,###')"
+                        },
+                        symbol: {
+                            type: "text",
+                            color: "#004a5d",
+                            font: {
+                            weight: "bold",
+                            family: "Noto Sans",
+                            size: "12px"
+                            }
+                        },
+                        labelPlacement: "center-center"
+                        }
+                    ]
+                    }
+                }
+            />
+        </Map>
+    </div>
+</Playground>

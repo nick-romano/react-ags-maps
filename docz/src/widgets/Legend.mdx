@@ -1,0 +1,85 @@
+---
+name: Legend
+menu: Map Widgets
+priority: 1
+---
+
+import { Playground, Props } from 'docz'
+import { Map } from 'react-ags-maps'
+import Legend from './Legend.tsx'
+
+# Legend
+
+## Import
+<code>{`import { Legend } from 'react-ags-maps'`}</code>
+
+## Basic usage
+
+<Playground>
+    <div style={{height: "500px", width: "100%"}}>
+        <Map id="basicLegend" webMapId="f2e9b762544945f390ca4ac3671cfa72">
+            <Legend />
+        </Map>
+    </div>
+</Playground>
+
+## Properties
+<Props of={Legend} />
+
+## `widgetArgs` Prop
+The `widgetArgs` prop accepts properties of the widget as defined in the official docs. See [https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Legend.html](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Legend.html) for the full list of properties available.
+<Playground>
+    <div style={{height: "500px", width: "100%"}}>
+        <Map id="widgetArgsLegend" webMapId="f2e9b762544945f390ca4ac3671cfa72">
+            <Legend widgetArgs={{
+                headingLevel: 1
+            }}
+            />
+        </Map>
+    </div>
+</Playground>
+
+
+## `expander` Prop
+The `expander` contains the layer list behind an icon button that can toggle.
+
+
+<Playground>
+    <div style={{height: "500px", width: "100%"}}>
+        <Map id="LegendExpander" webMapId="f2e9b762544945f390ca4ac3671cfa72">
+            <Legend expander />
+        </Map>
+    </div>
+</Playground>
+
+## `expandIconClass` Prop
+The `expandIconClass` prop allows you to change the icon of the expander. you can choose other classes from here [https://developers.arcgis.com/javascript/latest/esri-icon-font/](https://developers.arcgis.com/javascript/latest/esri-icon-font/)
+
+
+<Playground>
+    <div style={{height: "500px", width: "100%"}}>
+        <Map id="LegendExpanderIcon" webMapId="f2e9b762544945f390ca4ac3671cfa72">
+            <Legend expander expandIconClass={'esri-icon-collection'} />
+        </Map>
+    </div>
+</Playground>
+
+## `expandWidgetArgs` Prop
+The `expandWidgetArgs` prop allows you to add any additional arguments to the expand constructor. see the official docs for what you can add here.
+[https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Expand.html](https://developers.arcgis.com/javascript/latest/api-reference/esri-widgets-Expand.html)
+
+
+<Playground>
+    <div style={{height: "500px", width: "100%"}}>
+        <Map id="LegendExpandWidgetArgs" webMapId="f2e9b762544945f390ca4ac3671cfa72">
+            <Legend 
+                expander
+                expandIconClass={'esri-icon-collection'}
+                expandWidgetArgs={{
+                    mode: "drawer",
+                    expandTooltip: "Custom Tooltip"
+                }}
+            />
+        </Map>
+    </div>
+</Playground>

@@ -4,8 +4,13 @@ export { useMapContext };
 export { default as Map } from './Map';
 
 // Layers
-export { AccuweatherRadarLayer } from './layers';
 export { FeatureLayer } from './layers';
+export { GraphicsLayer } from './layers';
+export { MapImageLayer } from './layers';
+export { GeoJSONLayer } from './layers';
+
+// Lab
+// export { AnimatedPointLayer } from './lab';
 
 // Widgets
 export { Legend } from './widgets';

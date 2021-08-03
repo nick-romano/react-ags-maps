@@ -66,6 +66,30 @@ const setMocks = () => beforeEach(() => {
             }))
     }));
 
+    jest.mock("@arcgis/core/widgets/Zoom", () => ({
+        __esModule: true,
+        default: jest.fn().mockImplementation(
+            (args: __esri.ZoomConstructor) => ({
+                ...args, destroy: jest.fn()
+            }))
+    }));
+
+    jest.mock("@arcgis/core/widgets/Home", () => ({
+        __esModule: true,
+        default: jest.fn().mockImplementation(
+            (args: __esri.HomeConstructor) => ({
+                ...args, destroy: jest.fn()
+            }))
+    }));
+
+    jest.mock("@arcgis/core/widgets/Directions", () => ({
+        __esModule: true,
+        default: jest.fn().mockImplementation(
+            (args: __esri.HomeConstructor) => ({
+                ...args, destroy: jest.fn()
+            }))
+    }));
+
     jest.mock("@arcgis/core/widgets/Legend", () => ({
         __esModule: true,
         default: jest.fn().mockImplementation(

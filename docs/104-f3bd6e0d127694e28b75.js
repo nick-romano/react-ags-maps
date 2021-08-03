@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[104],{"0ixd":function(e,o,t){"use strict";t.r(o),t.d(o,"s",(function(){return p}));var r,s,c,d=t("zc/w"),i={exports:{}};r=i,void 0!==(c=i.exports,Object.defineProperty(c,"__esModule",{value:!0}),s=void(c.default={"Zoom Out":"Oddialiť","From %1 to %2":"Z %1 do %2","From %1":"Z %1","To %1":"Do %1"}))&&(r.exports=s);var n=Object(d.c)(i.exports),p=Object.freeze(Object.assign(Object.create(null),i.exports,{default:n}))}}]);
+//# sourceMappingURL=104-f3bd6e0d127694e28b75.js.map

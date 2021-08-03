@@ -1,0 +1,20 @@
+{
+  "name": "react-ags-maps-docs",
+  "version": "2.0.0",
+  "license": "MIT",
+  "scripts": {
+    "dev": "docz dev",
+    "build": "docz build",
+    "serve": "docz serve"
+  },
+  "dependencies": {
+    "@arcgis/core": "../node_modules/@arcgis/core",
+    "@types/arcgis-js-api": "../node_modules/@types/arcgis-js-api",
+    "docz": "^2.3.1",
+    "esri-loader": "^3.1.0",
+    "prop-types": "^15.7.2",
+    "react": "../node_modules/react",
+    "react-ags-maps": "file:..",
+    "react-dom": "../node_modules/react-dom"
+  }
+}

@@ -1,36 +1,62 @@
 import React, { useEffect } from 'react';
 import useMapContext from '../hook';
 import { IWidgetParams } from '../common/types';
-const { loadModules } = require('esri-loader');
+import { addExpander } from '../utils/addExpander';
+import widgetDefaultProps from '../consts/widgetDefaultProps';
 
-const Zoom = ({ position = "top-right" } : IWidgetParams) => {
+export interface IZoomProps extends IWidgetParams<__esri.ZoomProperties> { };
+
+
+const Zoom = ({
+  expander = widgetDefaultProps.expander,
+  expanderDefaultOpen = widgetDefaultProps.expanderDefaultOpen,
+  position = widgetDefaultProps.position,
+  widgetArgs = widgetDefaultProps.widgetArgs,
+  expandWidgetArgs = widgetDefaultProps.expandWidgetArgs,
+  expandIconClass = "esri-icon-zoom-in-fixed"
+}: IZoomProps) => {
   const { view } = useMapContext();
 
   useEffect(() => {
-    let mounted = true;
-    let zoom: __esri.Zoom;
+    let mounted: boolean = true;
+    let widget: __esri.Zoom;
+    let expand: __esri.Expand;
 
     const asyncEffect = async () => {
-      const reqModules = ["esri/widgets/Zoom"];
 
-      const [Zoom] : [__esri.ZoomConstructor] = await loadModules(reqModules);
+      const _import = await import('@arcgis/core/widgets/Zoom');
 
-      zoom = new Zoom({
-        view
+      const { default: Zoom } = _import;
+
+      widget = new Zoom({
+        view,
+        ...widgetArgs
       });
-      
-      mounted && view?.ui.add(zoom, position);
+
+      if (expander) {
+        expand = await addExpander({
+          view: view!,
+          widgetContent: widget,
+          expandIconClass,
+          position,
+          defaultOpen: expanderDefaultOpen,
+          expandWidgetArgs
+        });
+      } else {
+        mounted && view?.ui.add(widget, position);
+      }
     }
 
-    view && view.ready && asyncEffect();
+    view?.ready && asyncEffect();
 
     return () => {
       mounted = false;
-      zoom && zoom.destroy();
+      widget?.destroy();
+      expand?.destroy();
     }
-  }, [view, position]);
+  }, [view, expander, position]);
 
-  return (<></>);
+  return null;
 
 };
 

@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import useMapContext from '../hook';
-const { loadModules } = require('esri-loader');
 
 const FeatureLayer = ({ ...props } : __esri.FeatureLayerProperties) => {
   const { map, view } = useMapContext();
@@ -10,9 +9,10 @@ const FeatureLayer = ({ ...props } : __esri.FeatureLayerProperties) => {
     let layer: __esri.FeatureLayer;
 
     const asyncEffect = async () => {
-      const reqModules = ["esri/layers/FeatureLayer"];
 
-      const [ FeatureLayer ] : [__esri.FeatureLayerConstructor] = await loadModules(reqModules);
+      const _import = await import("@arcgis/core/layers/FeatureLayer");
+
+      const { default: FeatureLayer } = _import;
 
       const layer = new FeatureLayer(props);
 
