@@ -78,6 +78,7 @@
      "./src/__tests__",
       "./dist",
       "./docs",
+      "./docz",
       "./src/setupTests.ts"
    ]
 }
